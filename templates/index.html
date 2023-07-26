@@ -1,20 +1,5 @@
-{% extends "layout.html" %}
+{% extends 'base.html' %}
 
-{% block body %}
-    <h1>Dorm register</h1>
-    <form action="/register" method="post">
-        <input name="name" type="text" placeholder="Name">
-        <select name="dorm">
-            <option disabled selected value="">Dorm</option>
-            <option value="Apley Court">Apley Court</option>
-            <option value="Canaday">Canaday</option>
-            <option value="Church">Church</option>
-            <option value="Clayton">Clayton</option>
-            <option value="Collingwood">Collingwood</option>
-            <option value="Cornwall">Cornwall</option>
-            <option value="Cottonwood">Cottonwood</option>
-            <option value="Crofton">Crofton</option>
-        </select>
-        <input type="submit" value="Register">
-    </form>
+{% block title %}
+    APP market
 {% endblock %}
