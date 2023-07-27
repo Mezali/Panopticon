@@ -76,3 +76,4 @@ dmypy.json
 cython_debug/
 instance/*
 !instance/.gitignore
+./config.py

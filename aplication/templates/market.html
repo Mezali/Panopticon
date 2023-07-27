@@ -12,6 +12,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Barcode</th>
+            <th scope="col">Description</th>
             <th scope="col">Price</th>
             <th scope="col">Options</th>
         </tr>
@@ -19,9 +20,10 @@
         <tbody>
         {% for item in items %}
             <tr>
-                <td>{{ item.id }}</td>
+                <td>{{ item._id }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.barcode }}</td>
+                <td>{{ item.description }}</td>
                 <td>${{ item.price }}</td>
                 <td>
                     <button class="btn btn-info">More Info</button>
