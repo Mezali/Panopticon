@@ -2,6 +2,7 @@ from flask import render_template
 from pymongo.errors import PyMongoError
 
 from aplication import app, mongo
+from aplication.forms import RegisterForm
 
 
 @app.route('/')
@@ -18,3 +19,9 @@ def market():
     except PyMongoError:
         message = 'An unexpected error occur while fetching data from the database.'
         return render_template('error.html', message=message), 500
+
+
+@app.route('/register')
+def register():
+    form = RegisterForm()
+    return render_template('register.html', form=form)
