@@ -1,6 +1,9 @@
 <h1 style="text-align: center">Vassago</h1>
 
-<img src="aplication/static/images/vassago.jpg" alt="Selo de Vassago">
+<p align="center">
+  <img width="400" height="400" src="aplication/static/images/vassago.jpg" alt="Selo de Vassago"/>
+</p>
+
 
 <p>Vassago, é feito em python com o uso da biblioteca Flask e banco de dados MongoDB.</p>
 
