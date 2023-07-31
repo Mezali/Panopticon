@@ -5,8 +5,8 @@ from flask_pymongo import PyMongo
 from config import VARS
 
 app = Flask(__name__)
-app.config.from_object(VARS)
+app.config['MONGO_URI'] = VARS.MONGO_URI
+app.config['SECRET_KEY'] = VARS.SECRET_KEY
 mongo = PyMongo(app)
 
 from aplication import routes
-

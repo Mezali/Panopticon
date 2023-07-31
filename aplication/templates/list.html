@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Market Page
+    Listar NVRs
 {% endblock %}
 
 {% block body %}
@@ -9,22 +9,24 @@
     <table class="table table-hover table-dark">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Barcode</th>
-            <th scope="col">Description</th>
-            <th scope="col">Price</th>
+            <th scope="col">Local</th>
+            <th scope="col">IP</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Canais</th>
+            <th scope="col">Cameras Con.</th>
+            <th scope="col">NS</th>
             <th scope="col">Options</th>
         </tr>
         </thead>
         <tbody>
         {% for item in items %}
             <tr>
-                <td>{{ item._id }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.barcode }}</td>
-                <td>{{ item.description }}</td>
-                <td>${{ item.price }}</td>
+                <td>{{ item.location }}</td>
+                <td>{{ item.IP }}</td>
+                <td>{{ item.model }}</td>
+                <td>{{ item.channels }}</td>
+                <td>{{ item.cameras }}</td>
+                <td>{{ item.serial_number }}</td>
                 <td>
                     <button class="btn btn-info">More Info</button>
                     <button class="btn btn-success">Purchase this Item</button>
