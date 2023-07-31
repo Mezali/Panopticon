@@ -1,7 +1,7 @@
 <h1 style="text-align: center">Vassago</h1>
 
 <p align="center">
-    <img src="aplication/static/images/vassago.jpg" alt="Selo de Vassago" width="400" height="400">
+    <img src="aplication/static/images/vassago.ico" alt="Selo de Vassago" width="400" height="400">
 </p>
 <p align="center">
     <em>Vassago</em>
@@ -37,8 +37,9 @@ e-mail daniel@autecsp.com.br ou ligue para o número (14) 97402-4740.
 Se você estiver interessado em contribuir para o desenvolvimento do Vassago, fique à vontade para enviar pull requests
 ou relatar problemas em nosso repositório
 
+---
+
 ## Licença
 
 Este projeto é licenciado sob a [Licença MIT](https://mit-license.org/).
 
----
