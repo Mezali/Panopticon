@@ -1,10 +1,47 @@
 <h1 style="text-align: center">Vassago</h1>
 
+![Selo de Vassago](aplication/static/images/vassago.jpg)
 <p align="center">
-  <img width="400" height="400" src="aplication/static/images/vassago.jpg" alt="Selo de Vassago"/>
+    <em>Imagem ilustrativa de Vassago</em>
 </p>
 
+## Descrição
 
-<p>Vassago, é feito em python com o uso da biblioteca Flask e banco de dados MongoDB.</p>
+Vassago é um sistema desenvolvido para a monitoração e manutenção remota de NVRs (Network Video Recorders) pertencentes à AUTEC. Esse sistema permite o acompanhamento e gerenciamento eficiente dos dispositivos de vídeo de propriedade da organização.
 
-<p>Vassago, é um sistema feito para a monitoração e manutenção remota de NVRs de propriedade da AUTEC</p>
+## Funcionalidades Principais
+
+- Monitoramento remoto dos NVRs em tempo real.
+- Acesso às câmeras de segurança em diferentes locais.
+- Controle e configuração das gravações de vídeo.
+- Diagnóstico e solução de problemas à distância.
+- Notificações e alertas de eventos importantes.
+
+## Requisitos do Sistema
+
+- Conexão estável à internet.
+- Dispositivo com navegador web atualizado.
+- Credenciais de acesso fornecidas pela AUTEC.
+
+## Instalação e Uso
+
+1. Faça o download da última versão de Vassago no [site oficial](https://www.autec-vassago.com).
+2. Siga as instruções de instalação para configurar o sistema corretamente.
+3. Inicie o aplicativo e insira suas credenciais de acesso.
+4. Explore as funcionalidades disponíveis e comece a monitorar seus NVRs remotamente.
+
+## Suporte e Contato
+
+Para obter ajuda ou relatar problemas relacionados ao Vassago, entre em contato com nossa equipe de suporte através do e-mail support@autec-vassago.com ou ligue para o número (XX) XXXX-XXXX.
+
+## Contribuição
+
+Se você estiver interessado em contribuir para o desenvolvimento do Vassago, fique à vontade para enviar pull requests ou relatar problemas em nosso repositório no GitHub: [https://github.com/autec-vassago](https://github.com/autec-vassago).
+
+## Licença
+
+Este projeto é licenciado sob a [Licença XYZ](https://www.autec-vassago.com/licenca).
+
+---
+
+Esse é um exemplo de como o arquivo Markdown pode ser melhorado para ser mais informativo e organizado. Sinta-se à vontade para ajustar ou adicionar mais detalhes conforme necessário para atender às suas necessidades específicas. Lembre-se sempre de atualizar os links e informações de contato para que sejam precisos e válidos.
