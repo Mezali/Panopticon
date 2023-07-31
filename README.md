@@ -4,7 +4,7 @@
     <img src="aplication/static/images/vassago.jpg" alt="Selo de Vassago" width="400" height="400">
 </p>
 <p align="center">
-    <em>Imagem ilustrativa de Vassago</em>
+    <em>Vassago</em>
 </p>
 
 ## Descrição
@@ -27,30 +27,18 @@ organização.
 - Dispositivo com navegador web atualizado.
 - Credenciais de acesso fornecidas pela AUTEC.
 
-## Instalação e Uso
-
-1. Faça o download da última versão de Vassago no [site oficial](https://www.autec-vassago.com).
-2. Siga as instruções de instalação para configurar o sistema corretamente.
-3. Inicie o aplicativo e insira suas credenciais de acesso.
-4. Explore as funcionalidades disponíveis e comece a monitorar seus NVRs remotamente.
-
 ## Suporte e Contato
 
 Para obter ajuda ou relatar problemas relacionados ao Vassago, entre em contato com nossa equipe de suporte através do
-e-mail support@autec-vassago.com ou ligue para o número (XX) XXXX-XXXX.
+e-mail daniel@autecsp.com.br ou ligue para o número (14) 97402-4740.
 
 ## Contribuição
 
 Se você estiver interessado em contribuir para o desenvolvimento do Vassago, fique à vontade para enviar pull requests
-ou relatar problemas em nosso repositório no
-GitHub: [https://github.com/autec-vassago](https://github.com/autec-vassago).
+ou relatar problemas em nosso repositório
 
 ## Licença
 
-Este projeto é licenciado sob a [Licença XYZ](https://www.autec-vassago.com/licenca).
+Este projeto é licenciado sob a [Licença MIT](https://mit-license.org/).
 
 ---
-
-Esse é um exemplo de como o arquivo Markdown pode ser melhorado para ser mais informativo e organizado. Sinta-se à
-vontade para ajustar ou adicionar mais detalhes conforme necessário para atender às suas necessidades específicas.
-Lembre-se sempre de atualizar os links e informações de contato para que sejam precisos e válidos.
