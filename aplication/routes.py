@@ -14,7 +14,7 @@ def index():
 def list_nvr():
     try:
         items_cursor = mongo.db.item.find()
-        items = list_nvr(items_cursor)
+        items = items_cursor
         return render_template('list.html', items=items)
     except (PyMongoError, AttributeError):
         message = 'An unexpected error occur while displaying this page :(.'
