@@ -10,14 +10,14 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/market')
-def market():
+@app.route('/list')
+def list_nvr():
     try:
         items_cursor = mongo.db.item.find()
-        items = list(items_cursor)
-        return render_template('market.html', items=items)
-    except PyMongoError:
-        message = 'An unexpected error occur while fetching data from the database.'
+        items = list_nvr(items_cursor)
+        return render_template('list.html', items=items)
+    except (PyMongoError, AttributeError):
+        message = 'An unexpected error occur while displaying this page :(.'
         return render_template('error.html', message=message), 500
 
 
