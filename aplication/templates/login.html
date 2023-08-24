@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" class="form-register" style="color: white">
+                    {{ form.hidden_tag() }}
+                    <h2 class="mb-3">Entrar</h2>
+
+                    <div class="form-group">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control", placeholder="Nome de Usuário") }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control", placeholder="Senha") }}
+                    </div>
+
+                    <div class="form-group">
+                    </div>
+
+                    {{ form.submit(class="btn btn-primary") }}
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
