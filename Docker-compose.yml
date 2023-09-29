@@ -1,10 +1,13 @@
+version: '3'
 services:
   mongodb:
     image: mongo:latest
     container_name: mongodb
-    restart: always
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "Mazali"
+      MONGO_INITDB_ROOT_PASSWORD: "bL30h6wq9z03pZX4nLMUGfw8x"
     volumes:
       - mongodb_data:/data/db
 

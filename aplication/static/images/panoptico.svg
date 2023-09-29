@@ -1,0 +1,24 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Estrutura exterior -->
+  <circle cx="200" cy="200" r="180" stroke="black" stroke-width="2" fill="none" />
+
+  <!-- Torres de observação -->
+  <circle cx="90" cy="90" r="10" fill="gray" />
+  <circle cx="310" cy="90" r="10" fill="gray" />
+  <circle cx="90" cy="310" r="10" fill="gray" />
+  <circle cx="310" cy="310" r="10" fill="gray" />
+
+  <!-- Linha vertical -->
+  <line x1="200" y1="20" x2="200" y2="380" stroke="black" stroke-width="2" />
+
+  <!-- Linhas diagonais esquerda-superior e direita-inferior -->
+  <line x1="90" y1="90" x2="200" y2="200" stroke="black" stroke-width="2" />
+  <line x1="310" y1="310" x2="200" y2="200" stroke="black" stroke-width="2" />
+
+  <!-- Linhas diagonais direita-superior e esquerda-inferior -->
+  <line x1="90" y1="310" x2="200" y2="200" stroke="black" stroke-width="2" />
+  <line x1="310" y1="90" x2="200" y2="200" stroke="black" stroke-width="2" />
+
+  <!-- Olho central -->
+  <circle cx="200" cy="200" r="6" fill="blue" />
+</svg>

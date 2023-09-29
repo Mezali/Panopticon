@@ -3,33 +3,36 @@ from flask import render_template, session, flash, redirect, url_for
 from pymongo.errors import PyMongoError
 
 from aplication import app, mongo
-from aplication.forms import RegisterForm
+from aplication.forms import RegisterForm, LoginForm
 
 
 @app.route('/')
 def index():
-    # if 'username' in session:
-    #    return flash(f"Você está logado como, {session['username']}")
-    return render_template('index.html')
+    if 'username' in session:
+        return render_template('index.html')
+    else:
+        return redirect(url_for('login'))
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    return render_template('login.html')
+    form = LoginForm()
+    return render_template('login.html', form=form)
 
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     form = RegisterForm()
-    if form.validate_on_submit():  # To check if the form is valid
+
+    if form.validate_on_submit():  # Checar a porra do login
         user = mongo.db.user.find_one({'name': f'{form.username.data}'})
-        if user is None:  # If there's no user in the database, it will create a new user
-            email_address = form.email_address.data
-            print(email_address)
+
+        if user is None:  # Se não houver usuário cadastrado ele vai cadastrar
             hashpass = bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt())
             mongo.db.user.insert_one(
-                {'name': f'{form.username.data}', 'password': f'{hashpass}', 'email': f'{email_address}'})
-            session['username'] = user
+                {'name': f'{form.username.data}', 'password': f'{hashpass}'})
+            session['username'] = form.username.data
+
             return redirect(url_for('index'))
         else:
             flash('Usuário já cadastrado!', 'danger')
@@ -44,5 +47,5 @@ def list_nvr():
         items = items_cursor
         return render_template('list.html', items=items)
     except (PyMongoError, AttributeError):
-        message = 'An unexpected error occur while displaying this page :(.'
+        message = 'Um erro ocorreu em quanto essa pagina carregava 🙁'
         return render_template('error.html', message=message), 500
