@@ -5,40 +5,97 @@
 {% endblock %}
 
 {% block body %}
+    <div class="card-body m-1">
+        <form>
+            <table id="table" class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">Colaborador</th>
+                    <th scope="col" class="text-left" style="width: 100px;"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user_info in users %}
+                    <tr>
+                        <td>{{ user_info.split(' - ')[1] }}</td>
+                        <td>{{ user_info.split(' - ')[0] }}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm btn-excluir" data-user-info="{{ user_info }}">Excluir
+                            </button>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="user-checkbox" name="selected_users" value="{{ user_info }}"
+                                   checked>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-success" id="enviar-selecionados">Enviar Usuários Selecionados</button>
+        </form>
+    </div>
+{% endblock %}
 
-    <table class="table table-hover table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Local</th>
-            <th scope="col">IP</th>
-            <th scope="col">Modelo</th>
-            <th scope="col">Canais</th>
-            <th scope="col">Cameras Con.</th>
-            <th scope="col">NS</th>
-            <th scope="col">Options</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in items %}
-            <tr>
-                <td>{{ item.location }}</td>
-                <td>{{ item.IP }}</td>
-                <td>{{ item.model }}</td>
-                <td>{{ item.channels }}</td>
-                <td>{{ item.cameras }}</td>
-                <td>{{ item.serial_number }}</td>
-                <td>
-                    <button class="btn btn-info">More Info</button>
-                    <button class="btn btn-success">Purchase this Item</button>
-                </td>
-            </tr>
-        {% endfor %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
 
+            $('#table').DataTable({
+                "pageLength": 15,
+                columnDefs: [
+                    {orderable: false, targets: [2, 3]},
+                    {
+                        targets: -1,
+                        className: 'dt-body-right'
+                    }
+                ],
+                "language": {
+                    "sProcessing": "Processando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sEmptyTable": "Nenhum dado disponível nesta tabela",
+                    "sInfo": "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros de 0 a 0 de um total de 0 registros",
+                    "sInfoFiltered": "(filtrado de um total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Carregando...",
+                    "oPaginate": {
+                        "sFirst": "Primeiro",
+                        "sLast": "Último",
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ativar para ordenar a coluna de forma ascendente",
+                        "sSortDescending": ": Ativar para ordenar a coluna de forma descendente"
+                    }
+                }
+            });
 
-        </tbody>
-    </table>
+            // Adicione um evento de clique ao botão "Excluir"
+            $('.btn-excluir').on('click', function () {
+                var userValue = $(this).data('user-info');
+                excluirUsuario(userValue);
+            });
 
-
-
-
+            function excluirUsuario(userValue) {
+                // Envie os dados para o Flask usando $.ajax ou $.post
+                $.ajax({
+                    type: "POST",
+                    url: "/delete",
+                    data: JSON.stringify({userValue: userValue}),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        console.log("CARALHO ODEIO ESSA MERDA DE JAVASCRIPT");
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}
