@@ -5,97 +5,44 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card-body m-1">
-        <form>
-            <table id="table" class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">Matrícula</th>
-                    <th scope="col">Colaborador</th>
-                    <th scope="col" class="text-left" style="width: 100px;"></th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user_info in users %}
+    <div class="container col-12">
+        <div class="card-body m-1">
+            <form>
+                <table id="table" class="table table-hover">
+                    <thead>
                     <tr>
-                        <td>{{ user_info.split(' - ')[1] }}</td>
-                        <td>{{ user_info.split(' - ')[0] }}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm btn-excluir" data-user-info="{{ user_info }}">Excluir
-                            </button>
-                        </td>
-                        <td>
-                            <input type="checkbox" class="user-checkbox" name="selected_users" value="{{ user_info }}"
-                                   checked>
-                        </td>
+                        <th scope="col">Matrícula</th>
+                        <th scope="col">Colaborador</th>
+                        <th scope="col"></th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            <button type="button" class="btn btn-success" id="enviar-selecionados">Enviar Usuários Selecionados</button>
-        </form>
+                    </thead>
+                    <tbody>
+                    {% for user_info in users %}
+                        <tr>
+                            <td>{{ user_info.split(' - ')[1] }}</td>
+                            <td>{{ user_info.split(' - ')[0] }}</td>
+                            <td>
+                                <label>
+                                    <input type="checkbox" class="user-checkbox" name="user_selecionado"
+                                           value="{{ user_info }}"
+                                           checked>
+                                </label>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="col d-flex justify-content-end">
+                    <button class="btn btn-primary" type="button">
+                        Enviar colaboradores
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
 {% endblock %}
 
 {% block script %}
-    <script>
-        $(document).ready(function () {
-
-            $('#table').DataTable({
-                "pageLength": 15,
-                columnDefs: [
-                    {orderable: false, targets: [2, 3]},
-                    {
-                        targets: -1,
-                        className: 'dt-body-right'
-                    }
-                ],
-                "language": {
-                    "sProcessing": "Processando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Nenhum registro encontrado",
-                    "sEmptyTable": "Nenhum dado disponível nesta tabela",
-                    "sInfo": "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros de 0 a 0 de um total de 0 registros",
-                    "sInfoFiltered": "(filtrado de um total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Carregando...",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sLast": "Último",
-                        "sNext": "Próximo",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ativar para ordenar a coluna de forma ascendente",
-                        "sSortDescending": ": Ativar para ordenar a coluna de forma descendente"
-                    }
-                }
-            });
-
-            // Adicione um evento de clique ao botão "Excluir"
-            $('.btn-excluir').on('click', function () {
-                var userValue = $(this).data('user-info');
-                excluirUsuario(userValue);
-            });
-
-            function excluirUsuario(userValue) {
-                // Envie os dados para o Flask usando $.ajax ou $.post
-                $.ajax({
-                    type: "POST",
-                    url: "/delete",
-                    data: JSON.stringify({userValue: userValue}),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        console.log("CARALHO ODEIO ESSA MERDA DE JAVASCRIPT");
-                        console.log(data);
-                    }
-                });
-            }
-        });
-    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/list.js') }}"></script>
 {% endblock %}

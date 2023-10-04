@@ -2,10 +2,10 @@ import json
 
 import requests
 import urllib3
-from flask import render_template, session, flash, redirect, url_for, request, jsonify
+from flask import render_template, session, flash, redirect, url_for
 
 from aplication import app, mongo
-from aplication.forms import RegisterForm, LoginForm
+from aplication.forms import RegisterForm, LoginForm, RegisterColaborador
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -94,14 +94,8 @@ def listar():
         return redirect(url_for('login'))
 
 
-@app.route('/delete', methods=['POST', 'GET'])
-def delete():
-    data = request.get_json()
-    user_id = data.get('user_id')  # Obtém o ID do usuário do JSON
-
-    # Execute a lógica para excluir o usuário com o ID fornecido
-    # Substitua esta linha pelo código real de exclusão do usuário
-
-    # Responda com uma mensagem de confirmação ou status
-    response_data = {"message": f"Usuário com ID {user_id} excluído com sucesso"}
-    return jsonify(response_data)
+@app.route('/cad-colaborador', methods=['POST', 'GET'])
+def cad_colaborador():
+    form = RegisterColaborador()
+    if 'username' in session:
+        return render_template('cad-colaborador.html', form=form)

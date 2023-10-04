@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
@@ -14,3 +14,17 @@ class LoginForm(FlaskForm):
     username = StringField('Nome:', validators=[DataRequired()])
     password = PasswordField('Senha:', validators=[DataRequired()])
     submit = SubmitField(label='Entrar')
+
+
+class RegisterColaborador(FlaskForm):
+    nome = StringField('Nome:', validators=[DataRequired()])
+    matricula = StringField('Matricula:', validators=[DataRequired()])
+    cartao = StringField('Cartao:', validators=[DataRequired()])
+    seg_sex = BooleanField('Segunda a Sexta')
+    sab = BooleanField('Sábado')
+    dom = BooleanField('Domingo')
+    cafe_manha = BooleanField('Café da Manhã')
+    cafe_tarde = BooleanField('Café da Tarde')
+    almoco = BooleanField('Almoço')
+    janta = BooleanField('Janta')
+    submit = SubmitField('Cadastrar')
