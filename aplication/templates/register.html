@@ -4,31 +4,33 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form method="POST" class="form-register">
-                    {{ form.hidden_tag() }}
-                    <h2 class="mb-3">Registrar</h2>
+    <div class="container">
+        <div class="card-body my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="POST" class="form-register">
+                        {{ form.hidden_tag() }}
+                        <h2 class="mb-3">Registrar</h2>
 
-                    <div class="form-group">
-                        {{ form.username.label(class="form-label") }}
-                        {{ form.username(class="form-control", placeholder="Nome de Usuário") }}
-                    </div>
+                        <div class="form-group">
+                            {{ form.username.label(class="form-label") }}
+                            {{ form.username(class="form-control", placeholder="Nome de Usuário") }}
+                        </div>
 
-                    <div class="form-group">
-                        {{ form.password.label(class="form-label") }}
-                        {{ form.password(class="form-control", placeholder="Senha") }}
-                    </div>
+                        <div class="form-group">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control", placeholder="Senha") }}
+                        </div>
 
-                    <div class="form-group">
-                        {{ form.password_confirmation.label(class="form-label") }}
-                        {{ form.password_confirmation(class="form-control", placeholder="Confirmar Senha") }}
-                    </div>
+                        <div class="form-group">
+                            {{ form.password_confirmation.label(class="form-label") }}
+                            {{ form.password_confirmation(class="form-control", placeholder="Confirmar Senha") }}
+                        </div>
 
-                    {{ form.submit(class="btn btn-primary") }}
+                        {{ form.submit(class="btn btn-primary") }}
 
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -85,10 +85,12 @@ def listar():
 
 @app.route('/cad-colaborador', methods=['POST', 'GET'])
 def cad_colaborador():
-    form = RegisterColaborador()
     if 'username' in session:
-        return render_template('cad-colaborador.html', form=form)
+        form = RegisterColaborador()
+        if form.validate_on_submit():
+            pass
 
+        return render_template('cad-colaborador.html', form=form)
     else:
         return redirect(url_for('login'))
 

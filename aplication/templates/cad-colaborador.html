@@ -5,46 +5,46 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container my-5">
-        <div class="card-body m-3">
+    <div class="container">
+        <div class="card-body my-5">
             <form method="POST" class="form-register">
                 {{ form.hidden_tag() }}
-                <h2>Cadastro de Colabordor</h2>
+                <h2>Cadastro de Colaborador</h2>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="nome">Nome:</label>
-                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        {{ form.nome.label(class="form-label") }}
+                        {{ form.nome(class="form-control uppercase", placeholder="Nome colaborador") }}
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="matricula">Matrícula:</label>
-                        <input type="text" class="form-control" id="matricula" name="matricula" required>
+                        {{ form.matricula.label(class="form-label") }}
+                        {{ form.matricula(class="form-control", placeholder="Matricula do colaborador") }}
                     </div>
                 </div>
 
                 <div class="form-row">
 
                     <div class="form-group col-md-6">
-                        <label for="cartao">Cartão:</label>
-                        <input type="text" class="form-control" id="cartao" name="cartao" required>
+                        {{ form.cartao.label(class="form-label") }}
+                        {{ form.cartao(class="form-control", placeholder="Cartão do colaborador") }}
                     </div>
 
                     <div class="form-group col-md-6 container">
                         <label>Hora:</label>
                         <div class="d-flex align-items-center mt-2">
                             <div class="form-check mr-3">
-                                <input type="checkbox" class="form-check-input" id="seg_sex" name="seg_sex">
-                                <label class="form-check-label" for="seg_sex">Seg a Sex</label>
+                                {{ form.seg_sex(class="form-check-input") }}
+                                {{ form.seg_sex.label(class="form-check-label") }}
                             </div>
 
                             <div class="form-check mr-3">
-                                <input type="checkbox" class="form-check-input" id="sab" name="sab">
-                                <label class="form-check-label" for="sab">Sábado</label>
+                                {{ form.sab(class="form-check-input") }}
+                                {{ form.sab.label(class="form-check-label") }}
                             </div>
 
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="dom" name="dom">
-                                <label class="form-check-label" for="dom">Domingo</label>
+                                {{ form.dom(class="form-check-input") }}
+                                {{ form.dom.label(class="form-check-label") }}
                             </div>
                         </div>
                     </div>
@@ -54,33 +54,39 @@
                         <label>Entrada restaurante:</label>
                         <div class="d-flex align-items-center mt-2">
                             <div class="form-check-inline mr-3">
-                                <input type="checkbox" class="form-check-input" id="cafe_manha" name="cafe_manha">
-                                <label class="form-check-label" for="cafe_manha">Café da Manhã</label>
+                                {{ form.cafe_manha(class="form-check-input") }}
+                                {{ form.cafe_manha.label(class="form-check-label") }}
                             </div>
 
                             <div class="form-check-inline mr-3">
-                                <input type="checkbox" class="form-check-input" id="almoco" name="almoco">
-                                <label class="form-check-label" for="almoco">Almoço</label>
+                                {{ form.almoco(class="form-check-input") }}
+                                {{ form.almoco.label(class="form-check-label") }}
                             </div>
 
                             <div class="form-check-inline mr-3">
-                                <input type="checkbox" class="form-check-input" id="cafe_tarde" name="cafe_tarde">
-                                <label class="form-check-label" for="cafe_tarde">Café da Tarde</label>
+                                {{ form.cafe_pendura(class="form-check-input") }}
+                                {{ form.cafe_pendura.label(class="form-check-label") }}
                             </div>
 
                             <div class="form-check-inline mr-3">
-                                <input type="checkbox" class="form-check-input" id="janta" name="janta">
-                                <label class="form-check-label" for="janta">Janta</label>
+                                {{ form.cafe_tarde(class="form-check-input") }}
+                                {{ form.cafe_tarde.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check-inline mr-3">
+                                {{ form.janta(class="form-check-input") }}
+                                {{ form.janta.label(class="form-check-label") }}
                             </div>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Cadastrar</button>
+                {{ form.submit(class="btn btn-primary mt-3") }}
             </form>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
-
+    <script>
+        <script type="text/javascript" src="{{ url_for('static', filename='/js/cad.js') }}"</script>
 {% endblock %}

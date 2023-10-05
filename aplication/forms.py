@@ -24,6 +24,7 @@ class RegisterColaborador(FlaskForm):
     sab = BooleanField('Sábado')
     dom = BooleanField('Domingo')
     cafe_manha = BooleanField('Café da Manhã')
+    cafe_pendura = BooleanField('Café Pendura')
     cafe_tarde = BooleanField('Café da Tarde')
     almoco = BooleanField('Almoço')
     janta = BooleanField('Janta')
