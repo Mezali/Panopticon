@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Listar NVRs
+    Listar colaboradores
 {% endblock %}
 
 {% block body %}
@@ -21,16 +21,16 @@
                         <tr>
                             <td>{{ user_info.split(' - ')[1] }}</td>
                             <td>{{ user_info.split(' - ')[0] }}</td>
-                            <td>
+                            <td class="text-center">
                                 <label>
                                     <input type="checkbox" class="user-checkbox" name="user_selecionado"
-                                           value="{{ user_info }}"
-                                           checked>
+                                           value="{{ user_info }}" checked>
                                 </label>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
+
                 </table>
                 <div class="col d-flex justify-content-end">
                     <button class="btn btn-primary" type="button">

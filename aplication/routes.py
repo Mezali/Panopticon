@@ -6,6 +6,7 @@ from flask import render_template, session, flash, redirect, url_for
 
 from aplication import app, mongo
 from aplication.forms import RegisterForm, LoginForm, RegisterColaborador
+from aplication.functions import fetchBravas
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -27,11 +28,13 @@ def login():
 
         user = mongo.db.user.find_one({'name': username})
 
-        if username == user['name'] and password == user['password']:
-            session['username'] = user['name']
-            return redirect(url_for('index'))
-        else:
-            return f"não foi {password} {username} {user['password']}"
+        if user is not None:  # Check if the user exists
+            if username == user['name'] and password == user['password']:
+                session['username'] = user['name']
+                return redirect(url_for('cad_colaborador'))
+            else:
+                flash('Nome ou senha incorretos!', 'danger')
+
     return render_template('login.html', form=form)
 
 
@@ -65,27 +68,13 @@ def logout():
 def listar():
     if 'username' in session:
         try:
-            url = "https://192.168.10.4:8090/portaria/v1/bravas/config/user/"
-
-            payload = json.dumps({
-                "config": {
-                    "action": "getUserList",
-                    "mode": 0,
-                    "start": 0,
-                    "size": 999999
-                }
-            })
-            headers = {
-                'Content-Type': 'application/json'
-            }
-
-            response = requests.request("POST", url, headers=headers, data=payload, verify=False)
+            response = fetchBravas()
 
             if response.status_code == 200:
                 data = json.loads(response.text)
                 user = data["config"]["users"]
 
-                return render_template("list.html", users=user)
+                return render_template("list-colaborador.html", users=user)
         except requests.exceptions.RequestException as e:
             message = f"Erro na solicitação: {e}"
             return render_template('error.html', message=message), 500
@@ -99,3 +88,25 @@ def cad_colaborador():
     form = RegisterColaborador()
     if 'username' in session:
         return render_template('cad-colaborador.html', form=form)
+
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/del-colaborador', methods=['POST', 'GET'])
+def del_colaborador():
+    if 'username' in session:
+        try:
+            response = fetchBravas()
+
+            if response.status_code == 200:
+                data = json.loads(response.text)
+                user = data["config"]["users"]
+
+                return render_template("del-colaborador.html", users=user)
+        except requests.exceptions.RequestException as e:
+            message = f"Erro na solicitação: {e}"
+            return render_template('error.html', message=message), 500
+
+    else:
+        return redirect(url_for('login'))

@@ -3,6 +3,8 @@ $('#table').DataTable({
     "scrollY": "705px",
     "pageLength": 99999,
     columnDefs: [
+        {"width": "100px", "targets": 0},
+        {"width": "50px", "targets": 2},
         {orderable: false, targets: [2]},
         {
             targets: -1,

@@ -34,11 +34,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% if request.path == url_for('cad_colaborador') %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('cad_colaborador') }}">CADASTRAR</a>
+            </li>
             <li class="nav-item {% if request.path == url_for('listar') %}active{% endif %}">
                 <a class="nav-link" href="{{ url_for('listar') }}">LISTAR</a>
             </li>
-            <li class="nav-item {% if request.path == url_for('cad_colaborador') %}active{% endif %}">
-                <a class="nav-link" href="{{ url_for('cad_colaborador') }}">CADASTRAR</a>
+            <li class="nav-item {% if request.path == url_for('del_colaborador') %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('del_colaborador') }}">DELETAR</a>
             </li>
         </ul>
 

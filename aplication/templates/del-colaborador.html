@@ -1,10 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+    Deletar colaboradores
+{% endblock %}
+
+{% block body %}
+    <div class="container col-12">
+        <div class="card-body m-1">
+            <form>
+                <table id="table" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Matrícula</th>
+                        <th scope="col">Colaborador</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user_info in users %}
+                        <tr>
+                            <td>{{ user_info.split(' - ')[1] }}</td>
+                            <td>{{ user_info.split(' - ')[0] }}</td>
+                            <td class="text-center">
+                                <label>
+                                    <input type="checkbox" class="user-checkbox" name="user" value="{{ user_info }}">
+                                </label>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+                <div class="col d-flex justify-content-end">
+                    <button class="btn btn-danger" type="button">
+                        Deleter colaboradores
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/list.js') }}"></script>
+{% endblock %}
