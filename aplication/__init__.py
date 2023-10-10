@@ -7,6 +7,7 @@ from config import VARS
 app = Flask(__name__)
 app.config['MONGO_URI'] = VARS.MONGO_URI
 app.config['SECRET_KEY'] = VARS.SECRET_KEY
+app.config['BRAVAS_IP'] = VARS.BRAVAS_IP
 mongo = PyMongo(app)
 
 from aplication import routes

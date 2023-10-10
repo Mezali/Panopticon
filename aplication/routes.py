@@ -2,13 +2,14 @@ import json
 
 import requests
 import urllib3
-from flask import render_template, session, flash, redirect, url_for
+from flask import render_template, session, flash, redirect, url_for, request
 
 from aplication import app, mongo
 from aplication.forms import RegisterForm, LoginForm, RegisterColaborador
-from aplication.functions import fetchBravas
+from aplication.functions import fetchBravas, cadColaborador
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+ip = app.config['BRAVAS_IP']
 
 
 @app.route('/')
@@ -64,11 +65,42 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/cad-colaborador', methods=['POST', 'GET'])
+def cad_colaborador():
+    if 'username' in session:
+        form = RegisterColaborador()
+        if form.validate_on_submit():
+            nome = form.nome.data
+            matricula = form.matricula.data
+            cartao = form.cartao.data
+            seg_sex = form.seg_sex.data
+            sab = form.sab.data
+            dom = form.dom.data
+            cafe_manha = form.cafe_manha.data
+            almoco = form.almoco.data
+            cafe_pendura = form.cafe_pendura.data
+            cafe_tarde = form.cafe_tarde.data
+            janta = form.janta.data
+
+            response = cadColaborador(ip, nome, matricula, cartao, seg_sex, sab, dom, cafe_manha, almoco, cafe_pendura,
+                                      cafe_tarde,
+                                      janta)
+
+            if response.status_code == 200:
+                flash('Colaborador registrado com sucesso!', 'success')
+            else:
+                flash('Erro ao registrar colaborador! Verifique se o mesmo já foi registrado', 'danger')
+
+        return render_template('cad-colaborador.html', form=form)
+    else:
+        return redirect(url_for('login'))
+
+
 @app.route('/list')
 def listar():
     if 'username' in session:
         try:
-            response = fetchBravas()
+            response = fetchBravas(ip)
 
             if response.status_code == 200:
                 data = json.loads(response.text)
@@ -83,14 +115,28 @@ def listar():
         return redirect(url_for('login'))
 
 
-@app.route('/cad-colaborador', methods=['POST', 'GET'])
-def cad_colaborador():
+@app.route('/kit-colaborador', methods=['POST', 'GET'])
+def kit_colaborador():
     if 'username' in session:
-        form = RegisterColaborador()
-        if form.validate_on_submit():
-            pass
+        try:
+            response = fetchBravas(ip)
 
-        return render_template('cad-colaborador.html', form=form)
+            if response.status_code == 200:
+                data = json.loads(response.text)
+                user = data["config"]["users"]
+
+                user_selections = request.form.getlist('user_selection[]')  # Obtém os valores das seleções de usuário
+                user_info_values = request.form.getlist('user_info[]')  # Obtém os valores de user_info
+
+                # Processar os dados como necessário
+                for selected, user_info in zip(user_selections, user_info_values):
+                    print(f'Selecionado: {selected}, User Info: {user_info}')
+
+                return render_template("kit-colaborador.html", users=user)
+        except requests.exceptions.RequestException as e:
+            message = f"Erro na solicitação: {e}"
+            return render_template('error.html', message=message), 500
+
     else:
         return redirect(url_for('login'))
 
@@ -99,7 +145,7 @@ def cad_colaborador():
 def del_colaborador():
     if 'username' in session:
         try:
-            response = fetchBravas()
+            response = fetchBravas(ip)
 
             if response.status_code == 200:
                 data = json.loads(response.text)

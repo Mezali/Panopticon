@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
-
 {% block title %}
-    Listar colaboradores
+    Kit colaboradores
 {% endblock %}
 
 {% block body %}
     <div class="container col-12">
         <div class="card-body m-1">
-            <form>
+            <form id="form" method="POST">
                 <table id="table" class="table table-hover">
                     <thead>
                     <tr>
                         <th scope="col">Matrícula</th>
                         <th scope="col">Colaborador</th>
+                        <th scope="col">Seleção</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -23,20 +23,27 @@
                             <td>{{ user_info.split(' - ')[0] }}</td>
                             <td class="text-center">
                                 <label>
-                                    <button class="btn btn-info">Info</button>
+                                    <input type="checkbox" class="user-checkbox colaborador_estado">
                                 </label>
+                            </td>
+                            <td style="display: none;" class="no-sort">
+                                <input class="usuarios" type="hidden" name="user_info[]" value="{{ user_info }}">
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
-
                 </table>
+
+                <div class="col d-flex justify-content-end">
+                    <button type="submit" class="btn btn-success">Enviar colaboradores</button>
+                </div>
             </form>
         </div>
     </div>
 
+
 {% endblock %}
 
 {% block script %}
-    <script type="text/javascript" src="{{ url_for('static', filename='/js/list.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/kit.js') }}"></script>
 {% endblock %}

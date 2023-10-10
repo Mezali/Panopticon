@@ -24,8 +24,8 @@
 
 <!-- Navbar HERE -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ url_for('index') }}">
-        <img src="{{ url_for('static', filename='images/vassago.ico') }}" width="50" height="50">
+    <a class="navbar-brand" href="#">
+        <img src="{{ url_for('static', filename='images/vassago.ico') }}" width="50" height="50" alt="">
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -38,13 +38,16 @@
                 <a class="nav-link" href="{{ url_for('cad_colaborador') }}">CADASTRAR</a>
             </li>
             <li class="nav-item {% if request.path == url_for('listar') %}active{% endif %}">
-                <a class="nav-link" href="{{ url_for('listar') }}">LISTAR PARA KIT</a>
+                <a class="nav-link" href="{{ url_for('listar') }}">LISTAR COLABORADORES</a>
             </li>
-            <li class="nav-item {% if request.path == url_for('del_colaborador') %}active{% endif %}">
-                <a class="nav-link" href="{{ url_for('del_colaborador') }}">DELETAR</a>
+            <li class="nav-item {% if request.path == url_for('kit_colaborador') %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('kit_colaborador') }}">KIT COLABORADORES</a>
             </li>
             <li class="nav-item {% if request.path == url_for('del_colaborador') %}active{% endif %}">
                 <a class="nav-link" href="{{ url_for('del_colaborador') }}">CONTROLE EM MASSA</a>
+            </li>
+            <li class="nav-item {% if request.path == url_for('del_colaborador') %}active{% endif %}">
+                <a class="nav-link" href="{{ url_for('del_colaborador') }}">DELETAR</a>
             </li>
         </ul>
 
@@ -60,6 +63,7 @@
         </ul>
     </div>
 </nav>
+
 
 
 
@@ -105,8 +109,4 @@
         crossorigin="anonymous"></script>
 
 </body>
-<style>
-    body {
-    }
-</style>
 </html>

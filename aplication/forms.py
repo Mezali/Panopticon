@@ -29,3 +29,9 @@ class RegisterColaborador(FlaskForm):
     almoco = BooleanField('Almoço')
     janta = BooleanField('Janta')
     submit = SubmitField('Cadastrar')
+
+
+class KitForm(FlaskForm):
+    nome = StringField()
+    estado = BooleanField()
+    submit = SubmitField('Enviar colaboradores')
