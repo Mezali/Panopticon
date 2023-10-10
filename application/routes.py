@@ -4,9 +4,9 @@ import requests
 import urllib3
 from flask import render_template, session, flash, redirect, url_for, request
 
-from aplication import app, mongo
-from aplication.forms import RegisterForm, LoginForm, RegisterColaborador
-from aplication.functions import fetchBravas, cadColaborador
+from application import app, mongo
+from application.forms import RegisterForm, LoginForm, RegisterColaborador
+from application.functions import fetchBravas, cadColaborador
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ip = app.config['BRAVAS_IP']
