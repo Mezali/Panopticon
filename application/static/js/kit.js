@@ -1,6 +1,6 @@
 $('#table').DataTable({
     "paging": false,
-    "scrollY": "705px",
+    "scrollY": "675px",
     "pageLength": 99999,
     columnDefs: [
         {
@@ -8,13 +8,9 @@ $('#table').DataTable({
             "orderable": false,   // Não permitir classificação
             "searchable": false   // Não permitir pesquisa
         },
-        {"width": "100px", "targets": 0},
-        {"width": "50px", "targets": 2},
-        {orderable: false, targets: [2]},
-        {
-            targets: -1,
-            className: 'dt-body-right'
-        }
+        {"width": "20px", "targets": 0},
+        {"width": "50px", "targets": 1},
+        {orderable: false, targets: [0]},
     ],
     "language": {
         "sProcessing": "Processando...",
@@ -42,27 +38,66 @@ $('#table').DataTable({
     }
 })
 
-$("#form").submit(function (event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+$('#form').submit(function (event) {
+    event.preventDefault();
 
-    // Obtém todos os valores dos campos "colaborador_estado"
-    var colaborador = $('.usuarios').map(function () {
-        return $(this).val();
-    }).get();
+    let colaboradores = [];
 
-    // Envia os dados para o Flask usando Ajax
-    $.ajax({
-        url: "/sua-rota-flask-aqui", // Substitua pela rota correta do Flask
-        type: "POST",
-        data: {
-            colaborador: colaborador
-        },
-        success: function (response) {
-            // Lidar com a resposta do Flask, se necessário
-            console.log(response);
-        },
-        error: function (error) {
-            console.error(error);
+    $('.user-checkbox').each(function () {
+        let id = $(this).attr('id');
+        let checkBoxEstado = $(this).is(':checked');
+        colaboradores.push({estado: checkBoxEstado, nome: id});
+    });
+
+    // Exibir um Swal com uma tela de carregamento
+    Swal.fire({
+        title: 'Carregando',
+        text: 'Aguarde enquanto a operação está em andamento...',
+        allowOutsideClick: false,
+        onBeforeOpen: () => {
+            Swal.showLoading();
         }
     });
+
+    // Exibir um Swal com uma tela de carregamento
+    Swal.fire({
+        title: 'Carregando',
+        text: 'Aguarde enquanto a operação está em andamento...',
+        allowOutsideClick: false,
+        showConfirmButton: false, // Esconde o botão de fechar
+        onBeforeOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: '/kitedit',
+        data: JSON.stringify(colaboradores),
+        contentType: 'application/json',
+        success: function (response) {
+            // Feche o Swal após a conclusão da operação
+            Swal.close();
+
+            Swal.fire({
+                title: 'Operação concluída',
+                text: response.message,
+                icon: 'success',
+                confirmButtonText: 'Fechar'
+            });
+        },
+        error: function (error) {
+            // Feche o Swal em caso de erro
+            Swal.close();
+
+            Swal.fire({
+                title: 'Erro',
+                text: 'Ocorreu um erro ao processar os dados.',
+                icon: 'error',
+                confirmButtonText: 'Fechar'
+            });
+        }
+    });
+
+
 });

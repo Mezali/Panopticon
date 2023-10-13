@@ -2,11 +2,11 @@ import json
 
 import requests
 import urllib3
-from flask import render_template, session, flash, redirect, url_for, request
+from flask import render_template, session, flash, redirect, url_for, request, jsonify
 
 from application import app, mongo
 from application.forms import RegisterForm, LoginForm, RegisterColaborador
-from application.functions import fetchBravas, cadColaborador
+from application.functions import fetchbravas, insertbravas, editkit, delbravas
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ip = app.config['BRAVAS_IP']
@@ -82,9 +82,9 @@ def cad_colaborador():
             cafe_tarde = form.cafe_tarde.data
             janta = form.janta.data
 
-            response = cadColaborador(ip, nome, matricula, cartao, seg_sex, sab, dom, cafe_manha, almoco, cafe_pendura,
-                                      cafe_tarde,
-                                      janta)
+            response = insertbravas(ip, nome, matricula, cartao, seg_sex, sab, dom, cafe_manha, almoco, cafe_pendura,
+                                    cafe_tarde,
+                                    janta)
 
             if response.status_code == 200:
                 flash('Colaborador registrado com sucesso!', 'success')
@@ -100,7 +100,7 @@ def cad_colaborador():
 def listar():
     if 'username' in session:
         try:
-            response = fetchBravas(ip)
+            response = fetchbravas(ip)
 
             if response.status_code == 200:
                 data = json.loads(response.text)
@@ -119,16 +119,15 @@ def listar():
 def kit_colaborador():
     if 'username' in session:
         try:
-            response = fetchBravas(ip)
+            response = fetchbravas(ip)
 
             if response.status_code == 200:
                 data = json.loads(response.text)
                 user = data["config"]["users"]
 
-                user_selections = request.form.getlist('user_selection[]')  # Obtém os valores das seleções de usuário
-                user_info_values = request.form.getlist('user_info[]')  # Obtém os valores de user_info
+                user_selections = request.form.getlist('user_selection[]')
+                user_info_values = request.form.getlist('user_info[]')
 
-                # Processar os dados como necessário
                 for selected, user_info in zip(user_selections, user_info_values):
                     print(f'Selecionado: {selected}, User Info: {user_info}')
 
@@ -136,25 +135,29 @@ def kit_colaborador():
         except requests.exceptions.RequestException as e:
             message = f"Erro na solicitação: {e}"
             return render_template('error.html', message=message), 500
-
     else:
         return redirect(url_for('login'))
 
 
-@app.route('/del-colaborador', methods=['POST', 'GET'])
-def del_colaborador():
-    if 'username' in session:
-        try:
-            response = fetchBravas(ip)
+@app.route('/kitedit', methods=['POST'])
+def kitedit():
+    data = request.get_json()
 
-            if response.status_code == 200:
-                data = json.loads(response.text)
-                user = data["config"]["users"]
+    for items in data:
+        nome = items.get("nome")
+        estado = items.get("estado")
+        editkit(ip=ip, nome=nome, estado=estado)
 
-                return render_template("del-colaborador.html", users=user)
-        except requests.exceptions.RequestException as e:
-            message = f"Erro na solicitação: {e}"
-            return render_template('error.html', message=message), 500
+    resposta = {'message': 'Processado com sucesso!'}
+    return jsonify(resposta)
 
-    else:
-        return redirect(url_for('login'))
+
+@app.route('/del-colaborador', methods=['POST'])
+def delcolaborador():
+    data = request.get_json()
+    for items in data:
+        nome = items.get("nome")
+        delbravas(ip=ip, name=nome)
+
+    resposta = {'message': 'Processado com sucesso!'}
+    return jsonify(resposta)

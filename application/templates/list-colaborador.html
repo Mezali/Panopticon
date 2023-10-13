@@ -7,23 +7,29 @@
 {% block body %}
     <div class="container col-12">
         <div class="card-body m-1">
-            <form>
+            <form id="form" method="POST">
                 <table id="table" class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Matrícula</th>
-                        <th scope="col">Colaborador</th>
+                        <th class="text-center" scope="col">Seleção</th>
+                        <th class="text-left" scope="col">Matrícula</th>
+                        <th class="" scope="col">Colaborador</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for user_info in users %}
                         <tr>
+                            <td class="text-center">
+                                <label>
+                                    <input type="checkbox" id="{{ user_info }}" class="user-checkbox">
+                                </label>
+                            </td>
                             <td>{{ user_info.split(' - ')[1] }}</td>
                             <td>{{ user_info.split(' - ')[0] }}</td>
                             <td class="text-center">
                                 <label>
-                                    <button class="btn btn-info">Info</button>
+                                    <button class="btn btn-info" id="{{ user_info }}">Editar</button>
                                 </label>
                             </td>
                         </tr>
@@ -31,6 +37,9 @@
                     </tbody>
 
                 </table>
+                <div class="col d-flex justify-content-end">
+                    <button type="submit" class="btn btn-danger" id="excluir">EXCLUIR COLABORADORES</button>
+                </div>
             </form>
         </div>
     </div>

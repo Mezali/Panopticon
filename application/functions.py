@@ -1,12 +1,11 @@
 import json
 
-import requests
 import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def fetchBravas(ip):
+def fetchbravas(ip):
     url = f"https://{ip}:8090/portaria/v1/bravas/config/user/"
 
     payload = json.dumps({
@@ -14,7 +13,7 @@ def fetchBravas(ip):
             "action": "getUserList",
             "mode": 0,
             "start": 0,
-            "size": 999999
+            "size": 500
         }
     })
     headers = {
@@ -26,9 +25,9 @@ def fetchBravas(ip):
     return response
 
 
-def cadColaborador(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False, cafe_manha=False, almoco=False,
-                   cafe_pendura=False,
-                   cafe_tarde=False, janta=False):
+def insertbravas(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False, cafe_manha=False, almoco=False,
+                 cafe_pendura=False,
+                 cafe_tarde=False, janta=False):
     grupos = ['KIT']
 
     if seg_sex:
@@ -71,27 +70,49 @@ def cadColaborador(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False
     return response
 
 
-def KitColaborador(ip, nome, estado):
+import requests
+
+
+def editkit(ip, nome, estado):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
 
-    if estado is True:
-        kit = 'KIT'
-    else:
-        kit = ''
+    payload = {
+        "config": {
+            "action": "getUser",
+            "target": {
+                "name": f"{nome}"
+            }
+        }
+    }
+
+    headers = {
+        'Content-type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+    }
+
+    response = requests.post(url, json=payload, headers=headers, verify=False)
+
+    grupos = []
+
+    if response.status_code == 200:
+        data = response.json()
+        if 'config' in data and 'name' in data['config'] and 'groups' in data['config']:
+            nome = data['config']['name']
+            grupos.extend(data['config']['groups'])
+
+    if estado and "KIT" not in grupos:
+        grupos.append("KIT")
+
+    if not estado and "KIT" in grupos:
+        grupos.remove("KIT")
 
     payload = {
         "config": {
             "action": "editUser",
             "target": {
-                "name": f"{nome}"
+                "name": nome
             },
-            #        "enabled": f"{enable}",
-            #        "info": {
-            #            "cpf": f"{cpf}"
-            #        },
-            "groups": [
-                f"{kit}",
-            ],
+            "groups": grupos,
             "readers": [
                 "ALL"
             ]
@@ -104,3 +125,29 @@ def KitColaborador(ip, nome, estado):
     }
 
     response = requests.post(url, json=payload, headers=headers, verify=False)
+
+    return response
+
+
+def delbravas(ip, name):
+    url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
+
+    payload = {
+        "config": {
+            "action": "deleteUser",
+            "target": {
+                "name": f"{name}"
+            },
+            "readers": [
+                "ALL"
+            ]
+        }
+    }
+
+    headers = {
+        'Content-type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+    }
+
+    response = requests.post(url, json=payload, headers=headers, verify=False)
+    return response
