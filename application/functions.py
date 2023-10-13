@@ -6,7 +6,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def fetchBravas(ip):
+def fetchbravas(ip):
     url = f"https://{ip}:8090/portaria/v1/bravas/config/user/"
 
     payload = json.dumps({
@@ -14,7 +14,7 @@ def fetchBravas(ip):
             "action": "getUserList",
             "mode": 0,
             "start": 0,
-            "size": 999999
+            "size": 50
         }
     })
     headers = {
@@ -26,9 +26,9 @@ def fetchBravas(ip):
     return response
 
 
-def cadColaborador(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False, cafe_manha=False, almoco=False,
-                   cafe_pendura=False,
-                   cafe_tarde=False, janta=False):
+def insertbravas(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False, cafe_manha=False, almoco=False,
+                 cafe_pendura=False,
+                 cafe_tarde=False, janta=False):
     grupos = ['KIT']
 
     if seg_sex:
@@ -71,8 +71,26 @@ def cadColaborador(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False
     return response
 
 
-def KitColaborador(ip, nome, estado):
+def editkit(ip, nome, estado):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
+
+    payload = {
+        "config": {
+            "action": "getUser",
+            "target": {
+                "name": f"{nome}"
+            }
+        }
+    }
+
+    headers = {
+        'Content-type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+    }
+
+    response = requests.post(url, json=payload, headers=headers, verify=False)
+
+
 
     if estado is True:
         kit = 'KIT'
@@ -85,10 +103,6 @@ def KitColaborador(ip, nome, estado):
             "target": {
                 "name": f"{nome}"
             },
-            #        "enabled": f"{enable}",
-            #        "info": {
-            #            "cpf": f"{cpf}"
-            #        },
             "groups": [
                 f"{kit}",
             ],

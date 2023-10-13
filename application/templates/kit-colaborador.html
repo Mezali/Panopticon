@@ -13,7 +13,6 @@
                         <th scope="col">Matrícula</th>
                         <th scope="col">Colaborador</th>
                         <th scope="col">Seleção</th>
-                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -23,11 +22,8 @@
                             <td>{{ user_info.split(' - ')[0] }}</td>
                             <td class="text-center">
                                 <label>
-                                    <input type="checkbox" class="user-checkbox colaborador_estado">
+                                    <input type="checkbox" id="{{ user_info }}" class="user-checkbox" checked>
                                 </label>
-                            </td>
-                            <td style="display: none;" class="no-sort">
-                                <input class="usuarios" type="hidden" name="user_info[]" value="{{ user_info }}">
                             </td>
                         </tr>
                     {% endfor %}
@@ -38,10 +34,9 @@
                     <button type="submit" class="btn btn-success">Enviar colaboradores</button>
                 </div>
             </form>
+
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block script %}

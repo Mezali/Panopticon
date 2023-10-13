@@ -1,6 +1,6 @@
 $('#table').DataTable({
     "paging": false,
-    "scrollY": "705px",
+    "scrollY": "650px",
     "pageLength": 99999,
     columnDefs: [
         {"width": "100px", "targets": 0},
