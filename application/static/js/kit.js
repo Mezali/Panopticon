@@ -38,13 +38,18 @@ $('#table').DataTable({
     }
 })
 
-$("#form").submit(function (event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+$('#form').submit(function (event) {
+    event.preventDefault();
 
-    // Obtém todos os valores dos campos "colaborador_estado"
-    var colaborador = $('.usuarios').map(function () {
-        return $(this).val();
-    }).get();
+    let colaboradores = [];
+
+    $('.user-checkbox').each(function () {
+        let id = $(this).attr('id');
+        let checkBoxEstado = $(this).is(':checked');
+        colaboradores.push({estado: checkBoxEstado, nome: id});
+    });
+
+    console.log(colaboradores);
 
     // Exibir um Swal com uma tela de carregamento
     Swal.fire({
