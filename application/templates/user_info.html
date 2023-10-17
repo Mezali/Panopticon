@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Editar colaborador
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card-body my-5">
+
+            <a type="button" href="{{ url_for('listar') }}" class="btn btn-primary">Voltar</a>
+            <form method="POST" class="form-register">
+                {{ form.hidden_tag() }}
+                <h2>Editar informações do colaborador</h2>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.nome.label(class="form-label") }}
+                        <input type="text" readonly class="form-control" id="staticEmail"
+                               value="{{ name.split(' - ')[0] }}">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        {{ form.matricula.label(class="form-label") }}
+                        <input type="text" readonly class="form-control" id="staticEmail"
+                               value="{{ name.split(' - ')[1] }}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        {{ form.cartao.label(class="form-label") }}
+                        {{ form.cartao(class="form-control", placeholder="Cartão do colaborador", value=info["config"]["tags"][0]) }}
+                    </div>
+
+                    <div class="form-group col-md-6 container">
+                        <label>Hora:</label>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="form-check mr-3">
+                                {{ form.seg_sex(class="form-check-input", checked='geral' in info['config']['groups']) }}
+                                {{ form.seg_sex.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.sab(class="form-check-input", checked='sab' in info['config']['groups']) }}
+                                {{ form.sab.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check">
+                                {{ form.dom(class="form-check-input", checked='dom' in info['config']['groups'])  }}
+                                {{ form.dom.label(class="form-check-label") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12 container">
+                        <label>Entrada restaurante:</label>
+                        <div class="d-flex align-items-center mt-2">
+                            <div class="form-check-inline mr-3">
+                                {{ form.cafe_manha(class="form-check-input") }}
+                                {{ form.cafe_manha.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check-inline mr-3">
+                                {{ form.almoco(class="form-check-input") }}
+                                {{ form.almoco.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check-inline mr-3">
+                                {{ form.cafe_pendura(class="form-check-input") }}
+                                {{ form.cafe_pendura.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check-inline mr-3">
+                                {{ form.cafe_tarde(class="form-check-input") }}
+                                {{ form.cafe_tarde.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check-inline mr-3">
+                                {{ form.janta(class="form-check-input") }}
+                                {{ form.janta.label(class="form-check-label") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {{ form.submit(class="btn btn-primary mt-3") }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        <script type="text/javascript" src="{{ url_for('static', filename='/js/cad.js') }}"</script>
+{% endblock %}

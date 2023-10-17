@@ -28,7 +28,7 @@ class RegisterColaborador(FlaskForm):
     cafe_tarde = BooleanField('Café da Tarde')
     almoco = BooleanField('Almoço')
     janta = BooleanField('Janta')
-    submit = SubmitField('Cadastrar')
+    submit = SubmitField('Enviar')
 
 
 class KitForm(FlaskForm):

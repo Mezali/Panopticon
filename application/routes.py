@@ -6,7 +6,7 @@ from flask import render_template, session, flash, redirect, url_for, request, j
 
 from application import app, mongo
 from application.forms import RegisterForm, LoginForm, RegisterColaborador
-from application.functions import fetchbravas, insertbravas, editkit, delbravas
+from application.functions import fetchbravas, insertbravas, editkit, delbravas, seluser
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ip = app.config['BRAVAS_IP']
@@ -161,3 +161,12 @@ def delcolaborador():
 
     resposta = {'message': 'Processado com sucesso!'}
     return jsonify(resposta)
+
+
+@app.route('/user_info/<string:name>', methods=['POST', 'GET'])
+def user_info(name):
+    form = RegisterColaborador()
+    info_json = seluser(ip, name)
+    info = json.loads(info_json.text)
+
+    return render_template('user_info.html', name=name, info=info, form=form)
