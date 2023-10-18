@@ -1,7 +1,7 @@
 <h1 style="text-align: center">Vassago</h1>
 
 <p align="center">
-    <img src="application/static/images/vassago.ico" alt="Selo de Vassago" width="400" height="400">
+    <img src="application/static/images/autec.png" alt="Selo de Vassago" width="400" height="400">
 </p>
 <p align="center">
     <em>Vassago</em>

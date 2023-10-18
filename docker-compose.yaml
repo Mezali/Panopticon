@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  vassago:
+    container_name: vassago
+    build:
+      context: ./
+    ports:
+      - "80:80"
+
   mongodb:
     image: mongo:latest
     container_name: mongodb

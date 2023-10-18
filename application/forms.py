@@ -28,10 +28,23 @@ class RegisterColaborador(FlaskForm):
     cafe_tarde = BooleanField('Café da Tarde')
     almoco = BooleanField('Almoço')
     janta = BooleanField('Janta')
-    submit = SubmitField('Enviar')
+    submit = SubmitField('Cadastrar')
 
 
 class KitForm(FlaskForm):
     nome = StringField()
     estado = BooleanField()
     submit = SubmitField('Enviar colaboradores')
+
+
+class EditColaborador(FlaskForm):
+    cartao = StringField('Cartao:', validators=[DataRequired()])
+    seg_sex = BooleanField('Segunda a Sexta')
+    sab = BooleanField('Sábado')
+    dom = BooleanField('Domingo')
+    cafe_manha = BooleanField('Café da Manhã')
+    cafe_pendura = BooleanField('Café Pendura')
+    cafe_tarde = BooleanField('Café da Tarde')
+    almoco = BooleanField('Almoço')
+    janta = BooleanField('Janta')
+    submit = SubmitField('Enviar')

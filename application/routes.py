@@ -5,8 +5,8 @@ import urllib3
 from flask import render_template, session, flash, redirect, url_for, request, jsonify
 
 from application import app, mongo
-from application.forms import RegisterForm, LoginForm, RegisterColaborador
-from application.functions import fetchbravas, insertbravas, editkit, delbravas, seluser
+from application.forms import RegisterForm, LoginForm, RegisterColaborador, EditColaborador
+from application.functions import fetchbravas, insertbravas, editkit, delbravas, seluser, editbravas
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ip = app.config['BRAVAS_IP']
@@ -117,26 +117,29 @@ def listar():
 
 @app.route('/kit-colaborador', methods=['POST', 'GET'])
 def kit_colaborador():
-    if 'username' in session:
-        try:
-            response = fetchbravas(ip)
-
-            if response.status_code == 200:
-                data = json.loads(response.text)
-                user = data["config"]["users"]
-
-                user_selections = request.form.getlist('user_selection[]')
-                user_info_values = request.form.getlist('user_info[]')
-
-                for selected, user_info in zip(user_selections, user_info_values):
-                    print(f'Selecionado: {selected}, User Info: {user_info}')
-
-                return render_template("kit-colaborador.html", users=user)
-        except requests.exceptions.RequestException as e:
-            message = f"Erro na solicitação: {e}"
-            return render_template('error.html', message=message), 500
-    else:
+    if 'username' not in session:
         return redirect(url_for('login'))
+
+    try:
+        response = fetchbravas(ip)
+
+        if response.status_code != 200:
+            message = f"Erro na solicitação: {response.text}"
+            return render_template('error.html', message=message), 500
+
+        data = json.loads(response.text)
+        users = data["config"]["users"]
+
+        user_selections = request.form.getlist('user_selection[]')
+        user_info_values = request.form.getlist('user_info[]')
+
+        for selected, user_info in zip(user_selections, user_info_values):
+            print(f'Selecionado: {selected}, User Info: {user_info}')
+
+        return render_template("kit-colaborador.html", users=users)
+    except requests.exceptions.RequestException as e:
+        message = f"Erro na solicitação: {e}"
+        return render_template('error.html', message=message), 500
 
 
 @app.route('/kitedit', methods=['POST'])
@@ -165,8 +168,26 @@ def delcolaborador():
 
 @app.route('/user_info/<string:name>', methods=['POST', 'GET'])
 def user_info(name):
-    form = RegisterColaborador()
+    form = EditColaborador()
     info_json = seluser(ip, name)
     info = json.loads(info_json.text)
 
-    return render_template('user_info.html', name=name, info=info, form=form)
+    if form.validate_on_submit():
+        cartao = form.cartao.data
+        seg_sex = form.seg_sex.data
+        sab = form.sab.data
+        dom = form.dom.data
+        cafe_manha = form.cafe_manha.data
+        almoco = form.almoco.data
+        cafe_pendura = form.cafe_pendura.data
+        cafe_tarde = form.cafe_tarde.data
+        janta = form.janta.data
+
+        response = editbravas(ip, name, tag=cartao, seg_sex=seg_sex, sab=sab, dom=dom, cafe_manha=cafe_manha,
+                              almoco=almoco, cafe_pendura=cafe_pendura, cafe_tarde=cafe_tarde, janta=janta)
+        if response.status_code == 200:
+            flash('Colaborador atualizado com sucesso!', 'success')
+        else:
+            flash('Erro ao atualizar colaborador!', 'danger')
+
+    return render_template('edit-colaborador.html', name=name, info=info, form=form)
