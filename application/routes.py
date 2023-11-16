@@ -82,9 +82,14 @@ def cad_colaborador():
             cafe_tarde = form.cafe_tarde.data
             janta = form.janta.data
 
-            response = insertbravas(ip, nome, matricula, cartao, seg_sex, sab, dom, cafe_manha, almoco, cafe_pendura,
-                                    cafe_tarde,
-                                    janta)
+            try:
+                response = insertbravas(ip, nome, matricula, cartao, seg_sex, sab, dom, cafe_manha, almoco,
+                                        cafe_pendura,
+                                        cafe_tarde,
+                                        janta)
+            except requests.exceptions.RequestException as e:
+                message = f"Erro na solicitação: {e}"
+                return render_template('error.html', message=message), 500
 
             if response.status_code == 200:
                 flash('Colaborador registrado com sucesso!', 'success')
