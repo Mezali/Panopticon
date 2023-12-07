@@ -1,7 +1,7 @@
 db.createUser(
     {
         user: "Mazali",
-        pwd: "bL30h6wq9z03pZX4nLMUGfw8x",
+        pwd: "@utec8415",
         roles: [
             {
                 role: "readWrite",

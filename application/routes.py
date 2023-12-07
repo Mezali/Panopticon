@@ -2,6 +2,7 @@ import json
 
 import requests
 import urllib3
+import openpyxl
 from flask import render_template, session, flash, redirect, url_for, request, jsonify
 
 from application import app, mongo
@@ -99,6 +100,40 @@ def cad_colaborador():
         return render_template('cad-colaborador.html', form=form)
     else:
         return redirect(url_for('login'))
+
+
+@app.route('/op-massa', methods=['POST', 'GET'])
+def cad_massa():
+    if 'username' in session:
+        return render_template('op-massa.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/massa-add', methods=['POST', 'GET'])
+def massa_add():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'Nenhum arquivo encontrado'})
+
+        file = request.files['file']
+
+        # Verifica se o arquivo tem um nome
+        if file.filename == '':
+            return jsonify({'error': 'Nome de arquivo inválido'})
+
+        # Carrega o arquivo usando o Openpyxl
+        workbook = openpyxl.load_workbook(file)
+        sheet = workbook.active
+
+        # Realize o processamento desejado no arquivo
+        # Aqui, por exemplo, imprime o valor da célula A1
+        print(sheet['A1'].value)
+
+        # Retorna a resposta em JSON
+        return jsonify({'status': 'sucesso', 'mensagem': 'Arquivo processado com sucesso'})
+    except Exception as e:
+        return jsonify({'error': f'Erro ao processar o arquivo: {str(e)}'})
 
 
 @app.route('/list')
