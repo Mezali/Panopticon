@@ -7,16 +7,15 @@
 {% block body %}
     <div class="container">
         <div class="card-body my-5">
-            <h2>Cadastro em massa</h2>
+            <h2>Operação em massa</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="fileInput" class="form-label">Escolha um arquivo de planilha:</label>
-                    <input type="file" accept=".ods, .xls, .xlsx" class="form-control" id="planilha" name="file">
+                    <label for="fileInput" class="form-label">Escolha um arquivo de <a href="{{ url_for('static', filename='planilhas/example.xlsx') }}">planilha</a>:</label>
+                    <input type="file" accept=".xls, .xlsx" class="form-control" id="planilha" name="file">
                 </div>
                 <div class="mt-3">
-                    <button type="button" class="btn btn-success" id="adicionar">Adicionar</button>
-                    <button type="button" class="btn btn-warning" id="editar">Editar</button>
-                    <button type="button" class="btn btn-danger" id="excluir">Excluir</button>
+                    <button type="button" class="btn btn-success" id="adicionar">Adicionar colaboradores da planilha</button>
+                    <button type="button" class="btn btn-danger" id="excluir">Excluir todos cadastrados no sistema</button>
                 </div>
                 <!-- Campo oculto para armazenar dados da planilha -->
                 <input type="hidden" id="dadosPlanilha" name="dados_planilha">

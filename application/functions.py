@@ -2,6 +2,7 @@ import json
 
 import requests
 import urllib3
+from flask import jsonify
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -297,3 +298,18 @@ def delMassa(ip, name, matricula):
 
     response = requests.post(url, json=payload, headers=headers, verify=False)
     return response
+
+
+def dellGeral(ip):
+    try:
+        response = fetchbravas(ip)
+        if response.status_code == 200:
+            data = response.json()
+            users = data['config']['users']
+            for user in users:
+                name = user['name']
+                delbravas(ip, name)
+            return jsonify('Processado com sucesso!')
+    except requests.exceptions.RequestException as e:
+        message = f"Erro na solicitação: {e}"
+        return jsonify(message), 500

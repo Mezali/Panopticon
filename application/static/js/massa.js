@@ -10,7 +10,7 @@ $('#editar').click(function (event) {
 
 $('#excluir').click(function (event) {
     event.preventDefault();
-    processarPlanilha('excluir', '/massa-del');
+    processarPlanilha('excluir', '/dell-geral');
 });
 
 function processarPlanilha(action, url) {
@@ -68,3 +68,5 @@ function processarPlanilha(action, url) {
 
     reader.readAsText(file);
 }
+
+function excluirColaboradores(){}

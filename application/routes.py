@@ -7,7 +7,8 @@ from flask import render_template, session, flash, redirect, url_for, request, j
 
 from application import app, mongo
 from application.forms import RegisterForm, LoginForm, RegisterColaborador, EditColaborador
-from application.functions import fetchbravas, insertBravas, editkit, seluser, editbravas, cadMassa, delMassa, delbravas
+from application.functions import fetchbravas, insertBravas, editkit, seluser, editbravas, cadMassa, delMassa, \
+    delbravas, dellGeral
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ip = app.config['BRAVAS_IP']
@@ -16,7 +17,7 @@ ip = app.config['BRAVAS_IP']
 @app.route('/')
 def index():
     if 'username' in session:
-        return redirect(url_for('listar'))
+        return redirect(url_for('cad_massa'))
     else:
         return redirect(url_for('login'))
 
@@ -33,7 +34,7 @@ def login():
         if user is not None:  # Check if the user exists
             if username == user['name'] and password == user['password']:
                 session['username'] = user['name']
-                return redirect(url_for('cad_colaborador'))
+                return redirect(url_for('listar'))
             else:
                 flash('Nome ou senha incorretos!', 'danger')
 
@@ -329,3 +330,9 @@ def edit_user(name):
             flash('Erro ao atualizar colaborador!', 'danger')
 
     return render_template('edit-colaborador.html', name=name, info=info, form=form)
+
+
+@app.route('/dell-geral')
+def delete():
+    responce = dellGeral(ip)
+    return responce

@@ -24,83 +24,14 @@
 
                 <div class="form-row">
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         {{ form.cartao.label(class="form-label") }}
                         {{ form.cartao(class="form-control", placeholder="Cartão do colaborador") }}
                     </div>
 
-                    <div class="form-group col-md-6 container">
-                        <label>Hora:</label>
-                        <div class="d-flex align-items-center mt-2">
-                            <div class="form-check mr-3">
-                                {{ form.seg(class="form-check-input") }}
-                                {{ form.seg.label(class="form-check-label") }}
-                            </div>
 
-                            <div class="form-check mr-3">
-                                {{ form.ter(class="form-check-input") }}
-                                {{ form.ter.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check mr-3">
-                                {{ form.qua(class="form-check-input") }}
-                                {{ form.qua.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check mr-3">
-                                {{ form.qui(class="form-check-input") }}
-                                {{ form.qui.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check mr-3">
-                                {{ form.sex(class="form-check-input") }}
-                                {{ form.sex.label(class="form-check-label") }}
-                            </div>
-
-
-                            <div class="form-check mr-3">
-                                {{ form.sab(class="form-check-input") }}
-                                {{ form.sab.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check">
-                                {{ form.dom(class="form-check-input") }}
-                                {{ form.dom.label(class="form-check-label") }}
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-sm-12 container">
-                        <label>Entrada restaurante:</label>
-                        <div class="d-flex align-items-center mt-2">
-                            <div class="form-check-inline mr-3">
-                                {{ form.cafe_manha(class="form-check-input") }}
-                                {{ form.cafe_manha.label(class="form-check-label") }}
-                            </div>
 
-                            <div class="form-check-inline mr-3">
-                                {{ form.almoco(class="form-check-input") }}
-                                {{ form.almoco.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check-inline mr-3">
-                                {{ form.cafe_pendura(class="form-check-input") }}
-                                {{ form.cafe_pendura.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check-inline mr-3">
-                                {{ form.cafe_tarde(class="form-check-input") }}
-                                {{ form.cafe_tarde.label(class="form-check-label") }}
-                            </div>
-
-                            <div class="form-check-inline mr-3">
-                                {{ form.janta(class="form-check-input") }}
-                                {{ form.janta.label(class="form-check-label") }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 {{ form.submit(class="btn btn-primary mt-3") }}
             </form>
         </div>

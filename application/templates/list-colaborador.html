@@ -14,7 +14,6 @@
                         <th class="text-center" scope="col">Seleção</th>
                         <th class="text-left" scope="col">Matrícula</th>
                         <th class="" scope="col">Colaborador</th>
-                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,11 +26,6 @@
                             </td>
                             <td>{{ user_info.split(' - ')[1] }}</td>
                             <td>{{ user_info.split(' - ')[0] }}</td>
-                            <td class="text-center">
-                                <label>
-                                    <a class="btn btn-info" href="/user_info/{{ user_info }}" role="button">Editar</a>
-                                </label>
-                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

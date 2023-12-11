@@ -5,8 +5,7 @@ $('#table').DataTable({
     columnDefs: [
         {"width": "20px", "targets": 0},
         {"width": "50px", "targets": 1},
-        {"width": "50px", "targets": 3},
-        {orderable: false, targets: [0, 3], "searchable": false},
+        {orderable: false, targets: [0, 2], "searchable": false},
     ],
     "language": {
         "sProcessing": "Processando...",
