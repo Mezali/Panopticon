@@ -1,7 +1,7 @@
 <h1 style="text-align: center">Vassago</h1>
 
 <p align="center">
-    <img src="application/static/images/autec.png" alt="Selo de Vassago" width="400" height="400">
+    <img src="application/static/images/autec.png" alt="Selo de Vassago" width="755" height="269">
 </p>
 <p align="center">
     <em>Vassago</em>
@@ -9,17 +9,14 @@
 
 ## Descrição
 
-Vassago é um sistema desenvolvido para a monitoração e manutenção remota de NVRs (Network Video Recorders) pertencentes
-à AUTEC. Esse sistema permite o acompanhamento e gerenciamento eficiente dos dispositivos de vídeo de propriedade da
-organização.
+Vassago é um sistema desenvolvido para gerenciar colaboradores com o Bravas módulo catraca, sendo possível cadastral
+individualmente ou até mesmo fazer cadastros, edições e excluções em massa.
 
 ## Funcionalidades Principais
 
-- Monitoramento remoto dos NVRs em tempo real.
-- Acesso às câmeras de segurança em diferentes locais.
-- Controle e configuração das gravações de vídeo.
-- Diagnóstico e solução de problemas à distância.
-- Notificações e alertas de eventos importantes.
+- Cadastro facilitado.
+- Edição facilitado.
+- Cadastro, edição e exclusão usando planilhas.
 
 ## Requisitos do Sistema
 
