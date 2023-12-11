@@ -26,13 +26,22 @@ def fetchbravas(ip):
     return response
 
 
-def insertbravas(ip, nome, matricula, tag, seg_sex=False, sab=False, dom=False, cafe_manha=False, almoco=False,
+def insertBravas(ip, nome, matricula, tag, seg=False, ter=False, qua=False, qui=False, sex=False, sab=False, dom=False,
+                 cafe_manha=False, almoco=False,
                  cafe_pendura=False,
                  cafe_tarde=False, janta=False):
     grupos = ['KIT']
 
-    if seg_sex:
-        grupos.append("geral")
+    if seg:
+        grupos.append("seg")
+    if ter:
+        grupos.append("ter")
+    if qua:
+        grupos.append("qua")
+    if qui:
+        grupos.append("qui")
+    if sex:
+        grupos.append("sex")
     if sab:
         grupos.append("sab")
     if dom:
@@ -172,13 +181,22 @@ def seluser(ip, name):
     return response
 
 
-def editbravas(ip, nome, tag, seg_sex, sab, dom, cafe_manha, almoco,
-               cafe_pendura,
-               cafe_tarde, janta):
+def editbravas(ip, nome, tag, ativado, seg=True, ter=True, qua=True, qui=True, sex=True, sab=True, dom=True,
+               cafe_manha=False, almoco=False,
+               cafe_pendura=False,
+               cafe_tarde=False, janta=False):
     grupos = []
 
-    if seg_sex:
-        grupos.append("geral")
+    if seg:
+        grupos.append("seg")
+    if ter:
+        grupos.append("ter")
+    if qua:
+        grupos.append("qua")
+    if qui:
+        grupos.append("qui")
+    if sex:
+        grupos.append("sex")
     if sab:
         grupos.append("sab")
     if dom:
@@ -201,7 +219,7 @@ def editbravas(ip, nome, tag, seg_sex, sab, dom, cafe_manha, almoco,
             "target": {
                 "name": f"{nome}"
             },
-            "enabled": "True",
+            "enabled": f"{ativado}",
             "groups": grupos,
             "tags": [
                 f"{tag}"
@@ -219,7 +237,8 @@ def editbravas(ip, nome, tag, seg_sex, sab, dom, cafe_manha, almoco,
     return response
 
 
-def cadMassa(ip, nome, matricula, tag, ativado, cafe_manha, almoco, cafe_pendura, cafe_tarde, janta):
+def cadMassa(ip, nome, matricula, tag, ativado, cafe_manha, almoco, cafe_pendura,
+             cafe_tarde, janta):
     grupos = ["seg", "ter", "qua", "qui", "sex", "sab", "dom"]
 
     if cafe_manha:
@@ -252,5 +271,29 @@ def cadMassa(ip, nome, matricula, tag, ativado, cafe_manha, almoco, cafe_pendura
         'Content-type': 'application/vnd.api+json',
         'Accept': 'application/vnd.api+json'
     }
+    response = requests.post(url, json=payload, headers=headers, verify=False)
+    return response
+
+
+def delMassa(ip, name, matricula):
+    url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
+
+    payload = {
+        "config": {
+            "action": "deleteUser",
+            "target": {
+                "name": f"{name} - {matricula}"
+            },
+            "readers": [
+                "ALL"
+            ]
+        }
+    }
+
+    headers = {
+        'Content-type': 'application/vnd.api+json',
+        'Accept': 'application/vnd.api+json'
+    }
+
     response = requests.post(url, json=payload, headers=headers, verify=False)
     return response

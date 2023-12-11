@@ -1,13 +1,13 @@
 import json
 
+import openpyxl
 import requests
 import urllib3
-import openpyxl
 from flask import render_template, session, flash, redirect, url_for, request, jsonify
 
 from application import app, mongo
 from application.forms import RegisterForm, LoginForm, RegisterColaborador, EditColaborador
-from application.functions import fetchbravas, insertbravas, editkit, delbravas, seluser, editbravas
+from application.functions import fetchbravas, insertBravas, editkit, seluser, editbravas, cadMassa, delMassa, delbravas
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 ip = app.config['BRAVAS_IP']
@@ -74,7 +74,11 @@ def cad_colaborador():
             nome = form.nome.data
             matricula = form.matricula.data
             cartao = form.cartao.data
-            seg_sex = form.seg_sex.data
+            seg = form.seg.data
+            ter = form.ter.data
+            qua = form.qua.data
+            qui = form.qui.data
+            sex = form.sex.data
             sab = form.sab.data
             dom = form.dom.data
             cafe_manha = form.cafe_manha.data
@@ -84,7 +88,8 @@ def cad_colaborador():
             janta = form.janta.data
 
             try:
-                response = insertbravas(ip, nome, matricula, cartao, seg_sex, sab, dom, cafe_manha, almoco,
+                response = insertBravas(ip, nome, matricula, cartao, seg, ter, qua, qui, sex, sab, dom, cafe_manha,
+                                        almoco,
                                         cafe_pendura,
                                         cafe_tarde,
                                         janta)
@@ -124,16 +129,102 @@ def massa_add():
 
         # Carrega o arquivo usando o Openpyxl
         workbook = openpyxl.load_workbook(file)
-        sheet = workbook.active
+        sheet = workbook.worksheets[0]
 
-        # Realize o processamento desejado no arquivo
-        # Aqui, por exemplo, imprime o valor da célula A1
-        print(sheet['A1'].value)
+        for row in sheet.iter_rows(min_row=2, values_only=True):
+            nome = row[0]
+            matricula = row[1]
+            tag = row[2]
+            ativado = row[3]
+            cafe_manha = row[4]
+            almoco = row[5]
+            cafe_pendura = row[6]
+            cafe_tarde = row[7]
+            janta = row[8]
+
+            # Adiciona verificação para células vazias
+            if nome is None:
+                break
+
+            print(f'{nome} - {matricula} - {tag}')
+
+            cadMassa(ip=ip, nome=nome, matricula=matricula, tag=tag, ativado=ativado, cafe_manha=cafe_manha,
+                     almoco=almoco,
+                     cafe_pendura=cafe_pendura, cafe_tarde=cafe_tarde, janta=janta)
 
         # Retorna a resposta em JSON
-        return jsonify({'status': 'sucesso', 'mensagem': 'Arquivo processado com sucesso'})
+        return jsonify({'status': 200, 'mensagem': 'Arquivo processado com sucesso!'})
     except Exception as e:
-        return jsonify({'error': f'Erro ao processar o arquivo: {str(e)}'})
+        print(f'Erro ao processar o arquivo: {str(e)}')
+        return jsonify({'status': 500, 'mensagem': f'Erro ao processar o arquivo: {str(e)}'})
+
+
+@app.route('/massa-del', methods=['POST', 'GET'])
+def massa_del():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'Nenhum arquivo encontrado'})
+
+        file = request.files['file']
+
+        # Verifica se o arquivo tem um nome
+        if file.filename == '':
+            return jsonify({'error': 'Nome de arquivo inválido'})
+
+        # Carrega o arquivo usando o Openpyxl
+        workbook = openpyxl.load_workbook(file)
+        sheet = workbook.worksheets[0]
+
+        for row in sheet.iter_rows(min_row=2, values_only=True):
+            nome = row[0]
+            matricula = row[1]
+            delMassa(ip=ip, name=nome, matricula=matricula)
+            if nome is None:
+                break
+
+            print(f'{nome}')
+
+        # Retorna a resposta em JSON
+        return jsonify({'status': 200, 'mensagem': 'Arquivo processado com sucesso!'})
+    except Exception as e:
+        print(f'Erro ao processar o arquivo: {str(e)}')
+        return jsonify({'status': 500, 'mensagem': f'Erro ao processar o arquivo: {str(e)}'})
+
+
+@app.route('/massa-edit', methods=['POST', 'GET'])
+def edit_massa():
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'Nenhum arquivo encontrado'})
+
+        file = request.files['file']
+
+        # Verifica se o arquivo tem um nome
+        if file.filename == '':
+            return jsonify({'error': 'Nome de arquivo inválido'})
+
+        # Carrega o arquivo usando o Openpyxl
+        workbook = openpyxl.load_workbook(file)
+        sheet = workbook.worksheets[0]
+
+        for row in sheet.iter_rows(min_row=2, values_only=True):
+            nome = row[0]
+            matricula = row[1]
+            tag = row[2]
+            ativado = row[3]
+            cafe_manha = row[4]
+            almoco = row[5]
+            cafe_pendura = row[6]
+            cafe_tarde = row[7]
+            janta = row[8]
+            nome = f'{nome} - {matricula}'
+            editbravas(ip=ip, nome=nome, tag=tag, ativado=ativado, cafe_manha=cafe_manha, almoco=almoco,
+                       cafe_pendura=cafe_pendura, cafe_tarde=cafe_tarde, janta=janta)
+
+        return jsonify({'status': 200, 'mensagem': 'Arquivo processado com sucesso!'})
+    except Exception as e:
+        print(f'Erro ao processar o arquivo: {str(e)}')
+        return jsonify({'status': 500, 'mensagem': f'Erro ao processar o arquivo: {str(e)}'})
 
 
 @app.route('/list')
@@ -173,8 +264,8 @@ def kit_colaborador():
         user_selections = request.form.getlist('user_selection[]')
         user_info_values = request.form.getlist('user_info[]')
 
-        for selected, user_info in zip(user_selections, user_info_values):
-            print(f'Selecionado: {selected}, User Info: {user_info}')
+        for selected, info in zip(user_selections, user_info_values):
+            print(f'Selecionado: {selected}, User Info: {info}')
 
         return render_template("kit-colaborador.html", users=users)
     except requests.exceptions.RequestException as e:
@@ -207,14 +298,20 @@ def delcolaborador():
 
 
 @app.route('/user_info/<string:name>', methods=['POST', 'GET'])
-def user_info(name):
+def edit_user(name):
     form = EditColaborador()
     info_json = seluser(ip, name)
     info = json.loads(info_json.text)
 
     if form.validate_on_submit():
         cartao = form.cartao.data
-        seg_sex = form.seg_sex.data
+        seg = form.seg.data
+        ter = form.ter.data
+        qua = form.qua.data
+        qui = form.qui.data
+        sex = form.sex.data
+        sab = form.sab.data
+        dom = form.dom.data
         sab = form.sab.data
         dom = form.dom.data
         cafe_manha = form.cafe_manha.data
@@ -223,7 +320,8 @@ def user_info(name):
         cafe_tarde = form.cafe_tarde.data
         janta = form.janta.data
 
-        response = editbravas(ip, name, tag=cartao, seg_sex=seg_sex, sab=sab, dom=dom, cafe_manha=cafe_manha,
+        response = editbravas(ip, name, tag=cartao, seg=seg, ter=ter, qua=qua, qui=qui, sex=sex, sab=sab, dom=dom,
+                              cafe_manha=cafe_manha,
                               almoco=almoco, cafe_pendura=cafe_pendura, cafe_tarde=cafe_tarde, janta=janta)
         if response.status_code == 200:
             flash('Colaborador atualizado com sucesso!', 'success')

@@ -11,13 +11,17 @@
             <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="fileInput" class="form-label">Escolha um arquivo de planilha:</label>
-                    <input type="file" accept=".odt, .xls, .xlsx" class="form-control" id="planilha" name="file">
+                    <input type="file" accept=".ods, .xls, .xlsx" class="form-control" id="planilha" name="file">
                 </div>
                 <div class="mt-3">
                     <button type="button" class="btn btn-success" id="adicionar">Adicionar</button>
                     <button type="button" class="btn btn-warning" id="editar">Editar</button>
+                    <button type="button" class="btn btn-danger" id="excluir">Excluir</button>
                 </div>
+                <!-- Campo oculto para armazenar dados da planilha -->
+                <input type="hidden" id="dadosPlanilha" name="dados_planilha">
             </form>
+
         </div>
     </div>
 {% endblock %}

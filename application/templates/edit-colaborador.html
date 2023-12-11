@@ -37,8 +37,28 @@
                         <label>Hora:</label>
                         <div class="d-flex align-items-center mt-2">
                             <div class="form-check mr-3">
-                                {{ form.seg_sex(class="form-check-input", checked='geral' in info['config']['groups']) }}
-                                {{ form.seg_sex.label(class="form-check-label") }}
+                                {{ form.seg(class="form-check-input", checked='geral' in info['config']['groups']) }}
+                                {{ form.seg.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.ter(class="form-check-input", checked='ter' in info['config']['groups']) }}
+                                {{ form.ter.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.qua(class="form-check-input", checked='qua' in info['config']['groups']) }}
+                                {{ form.qua.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.qui(class="form-check-input", checked='qui' in info['config']['groups']) }}
+                                {{ form.qui.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.sex(class="form-check-input", checked='sex' in info['config']['groups']) }}
+                                {{ form.sex.label(class="form-check-label") }}
                             </div>
 
                             <div class="form-check mr-3">

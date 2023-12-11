@@ -33,9 +33,30 @@
                         <label>Hora:</label>
                         <div class="d-flex align-items-center mt-2">
                             <div class="form-check mr-3">
-                                {{ form.seg_sex(class="form-check-input") }}
-                                {{ form.seg_sex.label(class="form-check-label") }}
+                                {{ form.seg(class="form-check-input") }}
+                                {{ form.seg.label(class="form-check-label") }}
                             </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.ter(class="form-check-input") }}
+                                {{ form.ter.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.qua(class="form-check-input") }}
+                                {{ form.qua.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.qui(class="form-check-input") }}
+                                {{ form.qui.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.sex(class="form-check-input") }}
+                                {{ form.sex.label(class="form-check-label") }}
+                            </div>
+
 
                             <div class="form-check mr-3">
                                 {{ form.sab(class="form-check-input") }}
@@ -84,9 +105,4 @@
             </form>
         </div>
     </div>
-{% endblock %}
-
-{% block script %}
-    <script>
-        <script type="text/javascript" src="{{ url_for('static', filename='/js/cad.js') }}"</script>
 {% endblock %}
