@@ -332,7 +332,7 @@ def edit_user(name):
     return render_template('edit-colaborador.html', name=name, info=info, form=form)
 
 
-@app.route('/dell-geral')
+@app.route('/del-geral', methods=['POST', 'GET'])
 def delete():
-    responce = dellGeral(ip)
-    return responce
+    response = dellGeral(ip)
+    return response

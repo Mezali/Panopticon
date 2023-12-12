@@ -3,14 +3,10 @@ $('#adicionar').click(function (event) {
     processarPlanilha('adicionar', '/massa-add');
 });
 
-$('#editar').click(function (event) {
-    event.preventDefault();
-    processarPlanilha('editar', '/massa-edit');
-});
 
 $('#excluir').click(function (event) {
     event.preventDefault();
-    processarPlanilha('excluir', '/dell-geral');
+    excluirColaboradores()
 });
 
 function processarPlanilha(action, url) {
@@ -65,8 +61,35 @@ function processarPlanilha(action, url) {
             title: 'Erro', text: mensagem, icon: 'error', confirmButtonText: 'Fechar'
         });
     }
-
-    reader.readAsText(file);
 }
 
-function excluirColaboradores(){}
+function excluirColaboradores() {
+    Swal.fire({
+        title: 'Carregando...', allowEscapeKey: false, allowOutsideClick: false, didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        url: '/del-geral',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            console.log('Resposta do Flask:', response);
+
+            if (response.status === 200) {
+                Swal.fire({
+                    title: 'Operação concluída',
+                    text: response.mensagem,
+                    icon: 'success',
+                    confirmButtonText: 'Fechar'
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                alert(response.error);
+            }
+        },
+    });
+}
