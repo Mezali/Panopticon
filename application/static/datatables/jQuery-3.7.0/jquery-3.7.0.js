@@ -4448,11 +4448,11 @@ var isHiddenWithinTree = function( elem, el ) {
 		// in that case, element will be second argument
 		elem = el || elem;
 
-		// Inline style trumps all
+		// Inline css trumps all
 		return elem.style.display === "none" ||
 			elem.style.display === "" &&
 
-			// Otherwise, check computed style
+			// Otherwise, check computed css
 			// Support: Firefox <=43 - 45
 			// Disconnected elements can have computed display: none, so first confirm that elem is
 			// in the document.
@@ -6409,7 +6409,7 @@ function curCSS( elem, name, computed ) {
 		isCustomProp = rcustomProp.test( name ),
 
 		// Support: Firefox 51+
-		// Retrieving style before computed somehow
+		// Retrieving css before computed somehow
 		// fixes an issue with getting wrong values
 		// on detached elements
 		style = elem.style;
@@ -6639,7 +6639,7 @@ function boxModelAdjustment( elem, dimension, box, isBorderBox, styles, computed
 
 function getWidthOrHeight( elem, dimension, extra ) {
 
-	// Start with computed style
+	// Start with computed css
 	var styles = getStyles( elem ),
 
 		// To avoid forcing a reflow, only fetch boxSizing if we need it (gh-4322).
@@ -6715,8 +6715,8 @@ function getWidthOrHeight( elem, dimension, extra ) {
 
 jQuery.extend( {
 
-	// Add in style property hooks for overriding the default
-	// behavior of getting and setting a style property
+	// Add in css property hooks for overriding the default
+	// behavior of getting and setting a css property
 	cssHooks: {
 		opacity: {
 			get: function( elem, computed ) {
@@ -6767,7 +6767,7 @@ jQuery.extend( {
 	// setting or getting the value
 	cssProps: {},
 
-	// Get and set the style property on a DOM Node
+	// Get and set the css property on a DOM Node
 	style: function( elem, name, value, extra ) {
 
 		// Don't set styles on text and comment nodes
@@ -6840,7 +6840,7 @@ jQuery.extend( {
 				return ret;
 			}
 
-			// Otherwise just get the value from the style object
+			// Otherwise just get the value from the css object
 			return style[ name ];
 		}
 	},
@@ -6891,7 +6891,7 @@ jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 			if ( computed ) {
 
 				// Certain elements can have dimension info if we invisibly show them
-				// but it must have a current display style that would benefit
+				// but it must have a current display css that would benefit
 				return rdisplayswap.test( jQuery.css( elem, "display" ) ) &&
 
 					// Support: Safari 8+
@@ -7079,7 +7079,7 @@ Tween.propHooks = {
 			var result;
 
 			// Use a property on the element directly when it is not a DOM element,
-			// or when there is no matching style property that exists.
+			// or when there is no matching css property that exists.
 			if ( tween.elem.nodeType !== 1 ||
 				tween.elem[ tween.prop ] != null && tween.elem.style[ tween.prop ] == null ) {
 				return tween.elem[ tween.prop ];
@@ -7098,7 +7098,7 @@ Tween.propHooks = {
 
 			// Use step hook for back compat.
 			// Use cssHook if its there.
-			// Use .style if available and use plain properties where available.
+			// Use .css if available and use plain properties where available.
 			if ( jQuery.fx.step[ tween.prop ] ) {
 				jQuery.fx.step[ tween.prop ]( tween );
 			} else if ( tween.elem.nodeType === 1 && (

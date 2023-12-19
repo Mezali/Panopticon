@@ -57,7 +57,7 @@ var DataTable = $.fn.dataTable;
 var _link = document.createElement('a');
 
 /**
- * Clone link and style tags, taking into account the need to change the source
+ * Clone link and css tags, taking into account the need to change the source
  * path.
  *
  * @param  {node}     el Element to convert
@@ -165,12 +165,12 @@ DataTable.ext.buttons.print = {
 
 		win.document.close();
 
-		// Inject the title and also a copy of the style and link tags from this
+		// Inject the title and also a copy of the css and link tags from this
 		// document so the table can retain its base styling. Note that we have
 		// to use string manipulation as IE won't allow elements to be created
 		// in the host document and then appended to the new window.
 		var head = '<title>' + exportInfo.title + '</title>';
-		$('style, link').each(function () {
+		$('css, link').each(function () {
 			head += _styleToAbs(this);
 		});
 

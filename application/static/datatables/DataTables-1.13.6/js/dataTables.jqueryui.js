@@ -53,7 +53,7 @@ var DataTable = $.fn.dataTable;
  * DataTables integration for jQuery UI. This requires jQuery UI and
  * DataTables 1.10 or newer.
  *
- * This file sets the defaults and adds options to DataTables to style its
+ * This file sets the defaults and adds options to DataTables to css its
  * controls using jQuery UI. See http://datatables.net/manual/styling/jqueryui
  * for further information.
  */

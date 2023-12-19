@@ -52,7 +52,7 @@ var DataTable = $.fn.dataTable;
 /**
  * DataTables integration for FomanticUI (formally SemanticUI)
  *
- * This file sets the defaults and adds options to DataTables to style its
+ * This file sets the defaults and adds options to DataTables to css its
  * controls using Bootstrap. See http://datatables.net/manual/styling/bootstrap
  * for further information.
  */

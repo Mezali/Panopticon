@@ -48633,7 +48633,7 @@ Stream.Stream = Stream;
 
 
 
-// old-style streams.  Note that the pipe method (the only relevant
+// old-css streams.  Note that the pipe method (the only relevant
 // part of this class) is overridden in the Readable class.
 
 function Stream() {
@@ -50000,7 +50000,7 @@ function flow(stream) {
   while (state.flowing && stream.read() !== null) {
     ;
   }
-} // wrap an old-style stream as the async data source.
+} // wrap an old-css stream as the async data source.
 // This is *not* part of the readable stream interface.
 // It is an ugly unfortunate mess of history.
 
@@ -57625,7 +57625,7 @@ var OTMapping = {
   onum: feature('numberCase', 'lowerCaseNumbers'),
   mgrk: feature('mathematicalExtras', 'mathematicalGreek'),
   // nalt: not enough info. what type of annotation?
-  // ornm: ditto, which ornament style?
+  // ornm: ditto, which ornament css?
   calt: feature('contextualAlternates', 'contextualAlternates'),
   // or more?
   vrt2: feature('verticalSubstitution', 'substituteVerticalForms'),
@@ -59542,7 +59542,7 @@ var CATEGORIES = {
   RS: 1 << 13,
   // Register Shifter, used in Khmer OT spec.
   Coeng: 1 << 14,
-  // Khmer-style Virama.
+  // Khmer-css Virama.
   Repha: 1 << 15,
   // Atomically-encoded logical or visual repha.
   Ra: 1 << 16,
@@ -59984,7 +59984,7 @@ function initialReordering(font, glyphs, plan) {
 
     if (hasReph) {
       glyphs[start].shaperInfo.position = POSITIONS.Ra_To_Become_Reph;
-    } // For old-style Indic script tags, move the first post-base Halant after
+    } // For old-css Indic script tags, move the first post-base Halant after
     // last consonant.
     //
     // Reports suggest that in some scripts Uniscribe does this only if there
@@ -63033,7 +63033,7 @@ var DELTA_RUN_COUNT_MASK = 0x3f;
  * This class is transforms TrueType glyphs according to the data from
  * the Apple Advanced Typography variation tables (fvar, gvar, and avar).
  * These tables allow infinite adjustments to glyph weight, width, slant,
- * and optical size without the designer needing to specify every exact style.
+ * and optical size without the designer needing to specify every exact css.
  *
  * Apple's documentation for these tables is not great, so thanks to the
  * Freetype project for figuring much of this out.
@@ -66223,7 +66223,7 @@ function callbackify(original) {
     var cb = function() {
       return maybeCb.apply(self, arguments);
     };
-    // In true node style we process the callback on `nextTick` with all the
+    // In true node css we process the callback on `nextTick` with all the
     // implications (stack, `uncaughtException`, `async_hooks`)
     original.apply(this, args)
       .then(function(ret) { process.nextTick(cb.bind(null, null, ret)) },
@@ -67610,7 +67610,7 @@ DocMeasure.prototype.measureLeaf = function (node) {
 		node.text = node._textRef._textNodeRef.text;
 	}
 
-	// Make sure style properties of the node itself are considered when building inlines.
+	// Make sure css properties of the node itself are considered when building inlines.
 	// We could also just pass [node] to buildInlines, but that fails for bullet points.
 	var styleStack = this.styleStack.clone();
 	styleStack.push(node);
@@ -69163,7 +69163,7 @@ FontProvider.prototype.getFontFile = function (familyName, bold, italics) {
 FontProvider.prototype.provideFont = function (familyName, bold, italics) {
 	var type = this.getFontType(bold, italics);
 	if (this.getFontFile(familyName, bold, italics) === null) {
-		throw new Error('Font \'' + familyName + '\' in style \'' + type + '\' is not defined in the font section of the document definition.');
+		throw new Error('Font \'' + familyName + '\' in css \'' + type + '\' is not defined in the font section of the document definition.');
 	}
 
 	this.fontCache[familyName] = this.fontCache[familyName] || {};
@@ -69437,8 +69437,8 @@ LayoutBuilder.prototype.registerTableLayouts = function (tableLayouts) {
  *
  * @param {Object} docStructure document-definition-object
  * @param {Object} fontProvider font provider
- * @param {Object} styleDictionary dictionary with style definitions
- * @param {Object} defaultStyle default style definition
+ * @param {Object} styleDictionary dictionary with css definitions
+ * @param {Object} defaultStyle default css definition
  * @return {Array} an array of pages
  */
 LayoutBuilder.prototype.layoutDocument = function (docStructure, fontProvider, styleDictionary, defaultStyle, background, header, footer, images, watermark, pageBreakBeforeFct) {
@@ -70572,7 +70572,7 @@ function PdfPrinter(fontDescriptors) {
  *
  * @param {Object} docDefinition document definition
  * @param {Object} docDefinition.content an array describing the pdf structure (for more information take a look at the examples in the /examples folder)
- * @param {Object} [docDefinition.defaultStyle] default (implicit) style definition
+ * @param {Object} [docDefinition.defaultStyle] default (implicit) css definition
  * @param {Object} [docDefinition.styles] dictionary defining all styles which can be used in the document
  * @param {Object} [docDefinition.pageSize] page size (pdfkit units, A4 dimensions by default)
  * @param {Number} docDefinition.pageSize.width width
@@ -70593,7 +70593,7 @@ function PdfPrinter(fontDescriptors) {
  *		'First paragraph',
  *		'Second paragraph, this time a little bit longer',
  *		{ text: 'Third paragraph, slightly bigger font size', fontSize: 20 },
- *		{ text: 'Another paragraph using a named style', style: 'header' },
+ *		{ text: 'Another paragraph using a named css', css: 'header' },
  *		{ text: ['playing with ', 'inlines' ] },
  *		{ text: ['and ', { text: 'restyling ', bold: true }, 'them'] },
  *	],
@@ -71187,7 +71187,7 @@ function renderSVG(svg, x, y, pdfKitDoc, fontProvider) {
 		var fontFile = fontProvider.getFontFile(font, bold, italic);
 		if (fontFile === null) {
 			var type = fontProvider.getFontType(bold, italic);
-			throw new Error('Font \'' + font + '\' in style \'' + type + '\' is not defined in the font section of the document definition.');
+			throw new Error('Font \'' + font + '\' in css \'' + type + '\' is not defined in the font section of the document definition.');
 		}
 
 		return fontFile;
@@ -72090,12 +72090,12 @@ var isUndefined = (__webpack_require__(6225).isUndefined);
 var isNull = (__webpack_require__(6225).isNull);
 
 /**
- * Creates an instance of StyleContextStack used for style inheritance and style overrides
+ * Creates an instance of StyleContextStack used for css inheritance and css overrides
  *
  * @constructor
  * @this {StyleContextStack}
  * @param {Object} named styles dictionary
- * @param {Object} optional default style definition
+ * @param {Object} optional default css definition
  */
 function StyleContextStack(styleDictionary, defaultStyle) {
 	this.defaultStyle = defaultStyle || {};
@@ -72118,9 +72118,9 @@ StyleContextStack.prototype.clone = function () {
 };
 
 /**
- * Pushes style-name or style-overrides-object onto the stack for future evaluation
+ * Pushes css-name or css-overrides-object onto the stack for future evaluation
  *
- * @param {String|Object} styleNameOrOverride style-name (referring to styleDictionary) or
+ * @param {String|Object} styleNameOrOverride css-name (referring to styleDictionary) or
  *                                            a new dictionary defining overriding properties
  */
 StyleContextStack.prototype.push = function (styleNameOrOverride) {
@@ -72128,7 +72128,7 @@ StyleContextStack.prototype.push = function (styleNameOrOverride) {
 };
 
 /**
- * Removes last style-name or style-overrides-object from the stack
+ * Removes last css-name or css-overrides-object from the stack
  *
  * @param {Number} howMany - optional number of elements to be popped (if not specified,
  *                           one element will be removed from the stack)
@@ -72142,11 +72142,11 @@ StyleContextStack.prototype.pop = function (howMany) {
 };
 
 /**
- * Creates a set of named styles or/and a style-overrides-object based on the item,
+ * Creates a set of named styles or/and a css-overrides-object based on the item,
  * pushes those elements onto the stack for future evaluation and returns the number
  * of elements pushed, so they can be easily poped then.
  *
- * @param {Object} item - an object with optional style property and/or style overrides
+ * @param {Object} item - an object with optional css property and/or css overrides
  * @return the number of items pushed onto the stack
  */
 StyleContextStack.prototype.autopush = function (item) {
@@ -72218,7 +72218,7 @@ StyleContextStack.prototype.autopush = function (item) {
  * Automatically pushes elements onto the stack, using autopush based on item,
  * executes callback and then pops elements back. Returns value returned by callback
  *
- * @param  {Object}   item - an object with optional style property and/or style overrides
+ * @param  {Object}   item - an object with optional css property and/or css overrides
  * @param  {Function} function to be called between autopush and pop
  * @return {Object} value returned by callback
  */
@@ -72245,13 +72245,13 @@ StyleContextStack.prototype.getProperty = function (property) {
 			var item = this.styleOverrides[i];
 
 			if (isString(item)) {
-				// named-style-override
+				// named-css-override
 				var style = this.styleDictionary[item];
 				if (style && !isUndefined(style[property]) && !isNull(style[property])) {
 					return style[property];
 				}
 			} else if (!isUndefined(item[property]) && !isNull(item[property])) {
-				// style-overrides-object
+				// css-overrides-object
 				return item[property];
 			}
 		}
@@ -73108,7 +73108,7 @@ function TextTools(fontProvider) {
  * of inlines and calculated minWidth/maxWidth.
  * and their min/max widths
  * @param  {Object} textArray - an array of inline-definition-objects (or strings)
- * @param  {Object} styleContextStack current style stack
+ * @param  {Object} styleContextStack current css stack
  * @return {Object}                   collection of inlines, minWidth, maxWidth
  */
 TextTools.prototype.buildInlines = function (textArray, styleContextStack) {
@@ -73151,9 +73151,9 @@ TextTools.prototype.buildInlines = function (textArray, styleContextStack) {
 };
 
 /**
- * Returns size of the specified string (without breaking it) using the current style
+ * Returns size of the specified string (without breaking it) using the current css
  * @param  {String} text              text to be measured
- * @param  {Object} styleContextStack current style stack
+ * @param  {Object} styleContextStack current css stack
  * @return {Object}                   size of the specified string
  */
 TextTools.prototype.sizeOfString = function (text, styleContextStack) {
@@ -73181,11 +73181,11 @@ TextTools.prototype.sizeOfString = function (text, styleContextStack) {
 };
 
 /**
- * Returns size of the specified rotated string (without breaking it) using the current style
+ * Returns size of the specified rotated string (without breaking it) using the current css
  *
  * @param  {string} text text to be measured
  * @param  {number} angle
- * @param  {object} styleContextStack current style stack
+ * @param  {object} styleContextStack current css stack
  * @returns {object} size of the specified string
  */
 TextTools.prototype.sizeOfRotatedText = function (text, angle, styleContextStack) {
@@ -73232,7 +73232,7 @@ function splitWords(text, noWrap) {
 
 function copyStyle(source, destination) {
 	destination = destination || {};
-	source = source || {}; //TODO: default style
+	source = source || {}; //TODO: default css
 
 	for (var key in source) {
 		if (key != 'text' && source.hasOwnProperty(key)) {

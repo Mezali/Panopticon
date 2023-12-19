@@ -678,16 +678,16 @@ var excelStrings = {
 		'<diagonal />' +
 		'</border>' +
 		'<border diagonalUp="false" diagonalDown="false">' +
-		'<left style="thin">' +
+		'<left css="thin">' +
 		'<color auto="1" />' +
 		'</left>' +
-		'<right style="thin">' +
+		'<right css="thin">' +
 		'<color auto="1" />' +
 		'</right>' +
-		'<top style="thin">' +
+		'<top css="thin">' +
 		'<color auto="1" />' +
 		'</top>' +
-		'<bottom style="thin">' +
+		'<bottom css="thin">' +
 		'<color auto="1" />' +
 		'</bottom>' +
 		'<diagonal />' +

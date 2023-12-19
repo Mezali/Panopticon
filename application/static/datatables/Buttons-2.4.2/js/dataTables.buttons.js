@@ -877,7 +877,7 @@ $.extend(Buttons.prototype, {
 
 		// Style integration callback for DOM manipulation
 		// Note that this is _not_ documented. It is currently
-		// for style integration only
+		// for css integration only
 		if (this.c.buttonCreated) {
 			inserter = this.c.buttonCreated(config, inserter);
 		}

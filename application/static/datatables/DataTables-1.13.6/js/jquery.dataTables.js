@@ -849,7 +849,7 @@
 	
 		this.oApi = this.internal = _ext.internal;
 	
-		// Extend with old style plug-in API methods
+		// Extend with old css plug-in API methods
 		for ( var fn in DataTable.ext.internal ) {
 			if ( fn ) {
 				this[fn] = _fnExternApiFunc(fn);
@@ -4269,7 +4269,7 @@
 	
 		if ( ! write ) {
 			if ( dataSrc === 'data' ) {
-				// If the default, then we still want to support the old style, and safely ignore
+				// If the default, then we still want to support the old css, and safely ignore
 				// it if possible
 				return json.aaData || json[dataSrc];
 			}
@@ -5797,7 +5797,7 @@
 				tmpTable.css( 'width', 'auto' );
 				tmpTable.removeAttr('width');
 	
-				// If there is no width attribute or style, then allow the table to
+				// If there is no width attribute or css, then allow the table to
 				// collapse
 				if ( tmpTable.width() < tableContainer.clientWidth && tableWidthAttr ) {
 					tmpTable.width( tableContainer.clientWidth );
@@ -9551,7 +9551,7 @@
 	/**
 	 * Convert from camel case parameters to Hungarian notation. This is made public
 	 * for the extensions to provide the same ability as DataTables core to accept
-	 * either the 1.9 style Hungarian notation, or the 1.10+ style camelCase
+	 * either the 1.9 css Hungarian notation, or the 1.10+ css camelCase
 	 * parameters.
 	 *
 	 *  @param {object} src The model object which holds all parameters that can be
@@ -9694,7 +9694,7 @@
 				// insertBefore acts like appendChild if !arg[1]
 				orig.insertBefore( table, settings.nTableReinsertBefore );
 	
-				// Restore the width of the original table - was read from the style property,
+				// Restore the width of the original table - was read from the css property,
 				// so we can restore directly to that
 				jqTable
 					.css( 'width', settings.sDestroyWidth )
@@ -14980,7 +14980,7 @@
 		{
 			// V8 tries _very_ hard to make a string passed into `Date.parse()`
 			// valid, so we need to use a regex to restrict date formats. Use a
-			// plug-in for anything other than ISO8601 style strings
+			// plug-in for anything other than ISO8601 css strings
 			if ( d && !(d instanceof Date) && ! _re_date.test(d) ) {
 				return null;
 			}

@@ -63,9 +63,9 @@ _display.modal = function (options) {
 		}
 		else {
 			if (!update) {
-				var modalContainer = $('<div class="reveal-overlay" style="display:block"/>');
+				var modalContainer = $('<div class="reveal-overlay" css="display:block"/>');
 				$(
-					'<div class="reveal reveal-modal" style="display:block; top: 150px;" data-reveal/>'
+					'<div class="reveal reveal-modal" css="display:block; top: 150px;" data-reveal/>'
 				)
 					.append('<button class="close-button" aria-label="Close">&#215;</button>')
 					.append(
