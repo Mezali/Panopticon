@@ -304,6 +304,7 @@ def edit_user(name):
     info = json.loads(info_json.text)
 
     if form.validate_on_submit():
+        ativado = form.ativado.data
         cartao = form.cartao.data
         seg = form.seg.data
         ter = form.ter.data
@@ -320,7 +321,7 @@ def edit_user(name):
         cafe_tarde = form.cafe_tarde.data
         janta = form.janta.data
 
-        response = editbravas(ip, name, tag=cartao, seg=seg, ter=ter, qua=qua, qui=qui, sex=sex, sab=sab, dom=dom,
+        response = editbravas(ip, name, ativado=ativado, tag=cartao, seg=seg, ter=ter, qua=qua, qui=qui, sex=sex, sab=sab, dom=dom,
                               cafe_manha=cafe_manha,
                               almoco=almoco, cafe_pendura=cafe_pendura, cafe_tarde=cafe_tarde, janta=janta)
         if response.status_code == 200:

@@ -18,6 +18,7 @@
     <orderEntry type="library" name="jquery-3.7.1" level="application" />
     <orderEntry type="library" name="sweetalert2" level="application" />
     <orderEntry type="library" name="jquery.dataTables" level="application" />
+    <orderEntry type="module" module-name="foras" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

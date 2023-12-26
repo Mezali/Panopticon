@@ -178,6 +178,8 @@ def seluser(ip, name):
     }
 
     response = requests.post(url, json=payload, headers=headers, verify=False)
+    #print the entire json
+    print(response.json())
     return response
 
 

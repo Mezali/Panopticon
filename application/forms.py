@@ -42,6 +42,7 @@ class KitForm(FlaskForm):
 
 
 class EditColaborador(FlaskForm):
+    ativado = BooleanField('Ativado')
     cartao = StringField('Cartao:', validators=[DataRequired()])
     seg = BooleanField('Seg')
     ter = BooleanField('Ter')

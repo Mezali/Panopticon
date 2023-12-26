@@ -37,7 +37,12 @@
                         <label>Hora:</label>
                         <div class="d-flex align-items-center mt-2">
                             <div class="form-check mr-3">
-                                {{ form.seg(class="form-check-input", checked='geral' in info['config']['groups']) }}
+                                {{ form.ativado(class="form-check-input", checked='true' in info['config']['enabled']) }}
+                                {{ form.ativado.label(class="form-check-label") }}
+                            </div>
+
+                            <div class="form-check mr-3">
+                                {{ form.seg(class="form-check-input", checked='seg' in info['config']['groups']) }}
                                 {{ form.seg.label(class="form-check-label") }}
                             </div>
 
@@ -104,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-            {{ form.submit(class="btn btn-primary mt-3") }}
+                {{ form.submit(class="btn btn-primary mt-3") }}
             </form>
         </div>
     </div>
